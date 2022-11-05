@@ -1,3 +1,161 @@
-@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* Input, Select and Textarea */
+    .elcreative_input {
+        @apply relative my-1 w-full py-1;
+    }
+    .elcreative_input > input,
+    .elcreative_input > textarea,
+    .elcreative_input > select {
+        @apply w-full appearance-none rounded-md border border-solid border-colorBorder bg-colorBackground p-3 text-sm text-transparent transition-[border-color,box-shadow,margin,padding,transform,top] ease-in-out focus:border-colorKey focus:text-colorText focus:shadow-[inset_1px_0_var(--colorKey),inset_-1px_0_var(--colorKey),inset_0_-1px_var(--colorKey),inset_0_1px_var(--colorKey)] focus:shadow-colorKey focus:outline-0 disabled:cursor-no-drop dark:border-colorColorModeDarkBorder dark:bg-colorColorModeDarkBackground dark:focus:border-colorColorModeDarkKey dark:focus:text-colorColorModeDarkText dark:focus:shadow-colorColorModeDarkKey;
+    }
+    .elcreative_input > input {
+        @apply placeholder:text-transparent focus:placeholder:text-colorMeta dark:focus:placeholder:text-colorColorModeDarkMeta;
+    }
+    .elcreative_input > textarea {
+        @apply resize-y;
+    }
+    .elcreative_input > select {
+        @apply cursor-pointer px-2;
+    }
+    .elcreative_input > input:not(:placeholder-shown),
+    .elcreative_input > textarea:not(:placeholder-shown),
+    .elcreative_input > select:not(:placeholder-shown) {
+        @apply border-colorKey text-colorText dark:border-colorColorModeDarkKey dark:text-colorColorModeDarkText;
+    }
+    .elcreative_input > input:focus + label,
+    .elcreative_input > input:not(:placeholder-shown) + label,
+    .elcreative_input > textarea:focus + label,
+    .elcreative_input > textarea:not(:placeholder-shown) + label,
+    .elcreative_input > select:focus + label,
+    .elcreative_input > select:not(:placeholder-shown) + label {
+        @apply top-0 translate-y-[-20%] scale-[0.8] px-2 text-colorKey dark:text-colorColorModeDarkKey;
+    }
+    .elcreative_input > label {
+        @apply pointer-events-none absolute top-2/4 mx-[5.6px] -translate-y-[50%] bg-colorBackground px-[5.6px] text-sm leading-normal text-colorMeta transition-[border-color,box-shadow,transform,top,padding,margin] ease-in-out ltr:left-0 ltr:origin-top-left rtl:right-0 rtl:origin-top-right dark:bg-colorColorModeDarkBackground dark:text-colorColorModeDarkMeta;
+    }
+    .elcreative_input > textarea ~ label {
+        @apply top-7;
+    }
+
+    /* Button */
+    .elcreative_button {
+        @apply relative inline-flex cursor-pointer select-none appearance-none items-center justify-center overflow-hidden whitespace-nowrap rounded-[4px] border-0 bg-transparent px-3 text-sm font-medium leading-9 no-underline outline-0 transition-all duration-300 focus:outline-0;
+    }
+    .elcreative_button:not(.raised):not(.unelevated) {
+        @apply text-colorKey hover:bg-colorKeyTrans1 focus:bg-colorKeyTrans1 active:bg-colorKeyTrans2 dark:text-colorColorModeDarkKey dark:hover:bg-colorColorModeDarkKeyTrans1 dark:focus:bg-colorColorModeDarkKeyTrans1 dark:active:bg-colorColorModeDarkKeyTrans2;
+    }
+    .elcreative_button:not(.raised):not(.unelevated).outlined {
+        @apply border  border-solid border-colorKey dark:border-colorColorModeDarkKey;
+    }
+    .elcreative_button.raised,
+    .elcreative_button.unelevated {
+        @apply bg-colorKey text-colorBackground dark:bg-colorColorModeDarkKey dark:text-colorColorModeDarkBackground;
+    }
+    .elcreative_button.raised {
+        @apply shadow-2dp hover:shadow-4dp focus:shadow-4dp active:shadow-6dp;
+    }
+
+    /* Button Icon */
+    .elcreative_button_icon {
+        @apply relative inline-flex flex-shrink-0 flex-grow-0 cursor-pointer appearance-none items-center justify-center overflow-hidden rounded-full border-0 bg-transparent p-2 text-colorText outline-0 hover:bg-colorTextTrans1 focus:bg-colorTextTrans1 active:bg-colorTextTrans2;
+    }
+    .elcreative_button_icon svg {
+        @apply fill-current;
+    }
+
+    /* Tabs */
+    .elcreative_tabs {
+        @apply rounded-lg bg-colorBackground shadow-2dp dark:bg-colorColorModeDarkBackgroundAlt;
+    }
+    .elcreative_tabs .tab_buttons {
+        @apply flex w-full flex-nowrap items-center justify-start overflow-x-auto border-x-0 border-b border-t-0 border-solid border-colorBorder dark:border-colorColorModeDarkBorder;
+    }
+    .elcreative_tabs .tab_buttons .tab_button {
+        @apply relative flex flex-shrink-0 flex-grow-0 cursor-pointer flex-row items-center justify-center overflow-hidden whitespace-nowrap border-x-0 border-b-2 border-t-0 border-b-transparent bg-transparent py-2 px-4 text-sm font-bold text-colorMeta outline-0 dark:text-colorColorModeDarkMeta;
+    }
+    .elcreative_tabs .tab_buttons .tab_button svg {
+        @apply h-5 w-5 fill-current;
+    }
+    .elcreative_tabs .tab_buttons .tab_button svg ~ span,
+    .elcreative_tabs .tab_buttons .tab_button span ~ svg {
+        @apply ltr:ml-2 rtl:mr-2;
+    }
+    .elcreative_tabs .tab_buttons .tab_button.is-active {
+        @apply border-solid border-colorKey text-colorText dark:border-colorColorModeDarkKey dark:text-colorColorModeDarkText;
+    }
+    .elcreative_tabs .tab_contents {
+        @apply px-4 py-3;
+    }
+    .elcreative_tabs .tab_contents .tab_content {
+        @apply h-0 w-full overflow-hidden opacity-0 transition-all;
+    }
+    .elcreative_tabs .tab_contents .tab_content.is-active {
+        @apply h-auto overflow-visible opacity-100;
+    }
+
+    /* Dropdown */
+    .dropdown_container {
+        @apply relative;
+    }
+    .elcreative_dropdown {
+        @apply invisible absolute z-30 max-h-[60vh] min-w-[124px] max-w-xs scale-0 overflow-y-auto rounded-lg bg-colorBackground py-2 opacity-0 shadow-4dp transition-all duration-300 ltr:origin-top-left rtl:origin-top-right dark:bg-colorColorModeDarkBackgroundAlt;
+    }
+    .elcreative_dropdown.active {
+        @apply visible scale-100 opacity-100;
+    }
+    .elcreative_dropdown .dropdown_item {
+        @apply relative flex w-full cursor-pointer select-none appearance-none items-center justify-start border-0 bg-transparent py-2 px-4 text-sm no-underline outline-0;
+    }
+    .elcreative_dropdown .dropdown_item svg {
+        @apply h-[18px] w-[18px] fill-current ltr:mr-2 rtl:ml-2;
+    }
+
+    /* Dialog */
+    .elcreative_dialog {
+        @apply pointer-events-none invisible fixed left-0 right-0 top-0 bottom-0 z-50 flex h-screen items-center bg-[#20212475] p-[14px] opacity-0 transition-[opacity,visibility];
+    }
+    .elcreative_dialog.dialog_bottom {
+        @apply items-end pb-0;
+    }
+    .elcreative_dialog.active {
+        @apply visible opacity-100;
+    }
+    .elcreative_dialog .dialog_container {
+        @apply pointer-events-auto mx-auto max-h-screen w-full max-w-[680px] origin-center scale-0 overflow-hidden rounded-lg bg-colorBackground shadow-6dp transition-transform dark:bg-colorColorModeDarkBackgroundAlt;
+    }
+    .elcreative_dialog.dialog_bottom .dialog_container {
+        @apply origin-bottom translate-y-full scale-100 rounded-br-none rounded-bl-none;
+    }
+    .elcreative_dialog.active .dialog_container {
+        @apply scale-100;
+    }
+    .elcreative_dialog.dialog_bottom.active .dialog_container {
+        @apply translate-y-0;
+    }
+    .elcreative_dialog .dialog_header {
+        @apply flex items-center justify-between border-b border-b-colorBorder py-3 px-[18px] text-colorText dark:border-b-colorColorModeDarkBorder dark:text-colorColorModeDarkText;
+    }
+    .elcreative_dialog .dialog_header span {
+        @apply relative m-0 overflow-hidden text-ellipsis text-lg font-medium line-clamp-2;
+    }
+    .elcreative_dialog.dialog_bottom .dialog_content {
+        @apply pb-[70px] xl:pb-3;
+    }
+    .elcreative_dialog .dialog_content {
+        @apply h-full max-h-[70vh] overflow-hidden overflow-y-auto py-3 px-[18px] text-colorText dark:text-colorColorModeDarkText;
+    }
+    .elcreative_dialog .dialog_content pre {
+        @apply dark:bg-colorColorModeDarkBackground;
+    }
+    .elcreative_dialog .dialog_content .elcreative_input > label {
+        @apply bg-colorBackground dark:bg-colorColorModeDarkBackgroundAlt;
+    }
+    .elcreative_dialog .dialog_content .elcreative_input > input,
+    .elcreative_dialog .dialog_content .elcreative_input > textarea,
+    .elcreative_dialog .dialog_content .elcreative_input > select {
+        @apply bg-transparent dark:bg-transparent;
+    }
+}

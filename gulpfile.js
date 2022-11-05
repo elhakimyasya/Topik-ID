@@ -74,7 +74,7 @@ gulp.task('styles:minified', () => {
 // Generate scripts (webpack)
 gulp.task('scripts:webpack', () => {
     const sources = [
-        './src/assets/scripts/script.js',
+        // './src/assets/scripts/script.js',
         // './plugins/auth/scripts/*.js',
 
         // './build/scripts/pace.js',
@@ -263,7 +263,7 @@ gulp.task('build:production', gulp.series(
     'styles:minified',
     // 'scripts:webpack',
     'scripts:babel',
-    'scripts:webpack',
+    // 'scripts:webpack',
     'scripts:minified',
     'json:minify',
     'json:replace',

@@ -350,7 +350,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                     const postStatus = collsData.status;
 
                     templates += `
-                        <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder'>
+                        <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder border-solid border-t-0 border-x-0'>
                             <a href='?post-view=${postID}' class='mb-1 w-full text-colorText hover:text-colorKey ltr:pr-9 rtl:pl-9 dark:text-colorColorModeDarkText dark:hover:text-colorColorModeDarkKey'><span class='w-full font-bold'>${postTitle}</span></a>
         
                             <div class='flex mb-1 w-full flex-row flex-wrap items-center justify-start text-sm text-colorMeta dark:text-colorColorModeDarkMeta'>
@@ -417,7 +417,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                     const authorUID = collsData.authorUID;
 
                     templates += `
-                        <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder'>
+                        <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder border-solid border-t-0 border-x-0'>
                         <a href='?post-view=${postID}=${authorUID}' class='mb-1 w-full text-colorText hover:text-colorKey ltr:pr-9 rtl:pl-9 dark:text-colorColorModeDarkText dark:hover:text-colorColorModeDarkKey'><span class='w-full font-bold'>${postTitle}</span></a>
 
                         <div class='flex mb-1 w-full flex-row flex-wrap items-center justify-start text-sm text-colorMeta dark:text-colorColorModeDarkMeta'>
@@ -693,7 +693,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                             <div class='mt-2 text-center font-medium leading-5 text-colorText dark:text-colorColorModeDarkText'>
                                 ${listAllOptions.userRole == 'admin' ? (userCustomDisplayName ? userCustomDisplayName : userDisplayName) : (userPublic == "true" ? (userCustomDisplayName ? userCustomDisplayName : userDisplayName) : "Private User")}
                             </div>
-                            ${listAllOptions.userRole == 'admin' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${userPublic == 'false' ? `<svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12' title='Private User' class='ltr:mr-1 rtl:ml-1' title='Private User'>${options.icons.iconLock}</svg>` : ''}<span>${options.text.textViewProfile}</span></button>` : (userPublic == 'true' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${options.text.textViewProfile}</button>` : `<span class="text-xs text-colorMeta dark:text-colorColorModeDarkMeta">${options.text.textHiddenProfile}</span>`)}
+                            ${listAllOptions.userRole == 'admin' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey border-0 outline-0 bg-transparent cursor-pointer' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${userPublic == 'false' ? `<svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12' title='Private User' class='ltr:mr-1 rtl:ml-1' title='Private User'>${options.icons.iconLock}</svg>` : ''}<span>${options.text.textViewProfile}</span></button>` : (userPublic == 'true' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${options.text.textViewProfile}</button>` : `<span class="text-xs text-colorMeta dark:text-colorColorModeDarkMeta">${options.text.textHiddenProfile}</span>`)}
 
                             ${listAllOptions.userRole == 'admin' ? `<button class='elcreative_button_icon elcreative_ripple absolute top-0 ltr:right-0 rtl:left-0' aria-label='More' title='More' aria-expanded='false' aria-haspopup='listbox' data-toggle-class-on-target='active' data-toggle-target='#dropdown_set_remove_admin_${collsID}' data-toggle-escape data-toggle-outside><svg width='14' height='14' viewBox='0 0 24 24' fill='currentColor'>${options.icons.iconMoreVertical}</svg></button>
         
@@ -773,7 +773,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                 const userPublic = userData.userPublic;
 
                 const templates = `
-                    <div class='relative flex w-full flex-col items-center justify-center rounded-lg border border-colorBorder p-3 dark:border-colorColorModeDarkBorder'>
+                    <div class='relative flex w-full flex-col items-center justify-center rounded-lg border border-solid border-colorBorder p-3 dark:border-colorColorModeDarkBorder'>
                         <div class='flex w-full flex-col items-center justify-center lg:flex-row'>
                             <div class='relative h-[100px] w-[100px] flex-shrink-0 flex-grow-0'>
                                 <img src='${userPhotoUrl ? userPhotoUrl : options.images.imageUserDefault}' alt='${userDisplayName}' title='${userDisplayName}' class='h-full w-full rounded-full text-transparent'/>
@@ -802,7 +802,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                         <a href='?post-add' class='elcreative_button elcreative_ripple outlined w-full' rel='noopener'>${options.text.textCreateNewPost}</a>
                     </div>
 
-                    <div id='tabs_profile' class='elcreative_tabs mt-4 rounded-lg border border-colorBorder bg-colorBackground shadow-none dark:border-colorColorModeDarkBorder dark:bg-colorColorModeDarkBackground'>
+                    <div id='tabs_profile' class='elcreative_tabs mt-4 rounded-lg border border-solid border-colorBorder bg-colorBackground shadow-none dark:border-colorColorModeDarkBorder dark:bg-colorColorModeDarkBackground'>
                         <div class='tab_buttons'>
                             <button class='tab_button elcreative_ripple' type='button' data-toggle-target='#tab_posts' data-toggle-radio-group='tab_group_1' data-toggle-class data-toggle-is-active><span>${options.text.textMyPosts}</span></button>
                             ${userRole == 'admin' ? `<button id='tab_button_posts_all' class='tab_button elcreative_ripple' type='button' data-toggle-target='#tab_posts_all' data-toggle-radio-group='tab_group_1' data-toggle-class><span>${options.text.textAllPost}</span></button>` : ''}
@@ -940,7 +940,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
 
         const signIn = (container, signInOptions) => {
             let templates = `
-                <div class="flex w-full flex-col items-center justify-center rounded-lg border border-colorBorder py-3 px-3 dark:border-colorColorModeDarkBorder">
+                <div class="flex w-full flex-col items-center justify-center rounded-lg border border-solid border-colorBorder py-3 px-3 dark:border-colorColorModeDarkBorder">
                     <img src='${document.querySelector("link[rel^='icon']").getAttribute('href')}' class='mb-2 rounded-full shadow-2dp p-3' />
                     <div class="mb-2 text-2xl font-bold">Welcome</div>
                     <div class="mb-3">Please Sign-In to continue</div>
@@ -1021,8 +1021,8 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
     limitUserList: 6,
     elements: {
         elementContainer: elementPostBody,
-        elementPostHeader: document.querySelector('.post_header'),
-        elementPostTitle: document.querySelector('.post_title'),
+        elementPostHeader: document.querySelector('.post-header'),
+        elementPostTitle: document.querySelector('.entry-title'),
         elementLoader: elcreativeConfig.include.iconLoader,
     },
     images: {

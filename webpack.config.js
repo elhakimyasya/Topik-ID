@@ -6,11 +6,11 @@ module.exports = {
     mode: 'production',
     entry: {
         // auth: './plugins/auth/scripts/script.js',
-        "materia-auth": './plugins/materia-auth/scripts/script.js',
+        // "materia-auth": './plugins/materia-auth/scripts/script.js',
         // midtrans: './plugins/midtrans/scripts/script.js',
         // drive: './plugins/drive/scripts/script.js',
         // main: './plugins/scripts.js',
-        // scripts: './src/assets/scripts/module.js',
+        scripts: './src/assets/scripts/script.js',
     },
     module: {
         rules: [
