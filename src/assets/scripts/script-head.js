@@ -1,5 +1,5 @@
 const authPageIndex = 'index.html'
-const elementPostBody = document.getElementById('post_body')
+const elementPostBody = document.querySelector('.post_body')
 const firebaseConfig = {
     apiKey: "AIzaSyCbeiP66A3aS68k7JJYOrIr5_jHvQ50OVI",
     authDomain: "materia-auth.firebaseapp.com",
