@@ -9,10 +9,7 @@
     .elcreative_input > input,
     .elcreative_input > textarea,
     .elcreative_input > select {
-        @apply w-full appearance-none rounded-md border border-solid border-colorBorder bg-colorBackground p-3 text-sm text-transparent transition-[border-color,box-shadow,margin,padding,transform,top] ease-in-out focus:border-colorKey focus:text-colorText focus:shadow-[inset_1px_0_var(--colorKey),inset_-1px_0_var(--colorKey),inset_0_-1px_var(--colorKey),inset_0_1px_var(--colorKey)] focus:shadow-colorKey focus:outline-0 disabled:cursor-no-drop dark:border-colorColorModeDarkBorder dark:bg-colorColorModeDarkBackground dark:focus:border-colorColorModeDarkKey dark:focus:text-colorColorModeDarkText dark:focus:shadow-colorColorModeDarkKey;
-    }
-    .elcreative_input > input {
-        @apply placeholder:text-transparent focus:placeholder:text-colorMeta dark:focus:placeholder:text-colorColorModeDarkMeta;
+        @apply w-full appearance-none rounded-md border border-solid border-colorBorder bg-colorBackground p-3 text-sm transition-[border-color,box-shadow,margin,padding,transform,top] ease-in-out focus:border-colorKey focus:text-colorText focus:shadow-[inset_1px_0_var(--colorKey),inset_-1px_0_var(--colorKey),inset_0_-1px_var(--colorKey),inset_0_1px_var(--colorKey)] focus:shadow-colorKey focus:outline-0 disabled:cursor-no-drop dark:border-colorColorModeDarkBorder dark:bg-colorColorModeDarkBackground dark:focus:border-colorColorModeDarkKey dark:focus:text-colorColorModeDarkText dark:focus:shadow-colorColorModeDarkKey;
     }
     .elcreative_input > textarea {
         @apply resize-y;
@@ -20,19 +17,7 @@
     .elcreative_input > select {
         @apply cursor-pointer px-2;
     }
-    .elcreative_input > input:not(:placeholder-shown),
-    .elcreative_input > textarea:not(:placeholder-shown),
-    .elcreative_input > select:not(:placeholder-shown) {
-        @apply border-colorKey text-colorText dark:border-colorColorModeDarkKey dark:text-colorColorModeDarkText;
-    }
-    .elcreative_input > input:focus + label,
-    .elcreative_input > input:not(:placeholder-shown) + label,
-    .elcreative_input > textarea:focus + label,
-    .elcreative_input > textarea:not(:placeholder-shown) + label,
-    .elcreative_input > select:focus + label,
-    .elcreative_input > select:not(:placeholder-shown) + label {
-        @apply top-0 translate-y-[-20%] scale-[0.8] px-2 text-colorKey dark:text-colorColorModeDarkKey;
-    }
+
     .elcreative_input > label {
         @apply pointer-events-none absolute top-2/4 mx-[5.6px] -translate-y-[50%] bg-colorBackground px-[5.6px] text-sm leading-normal text-colorMeta transition-[border-color,box-shadow,transform,top,padding,margin] ease-in-out ltr:left-0 ltr:origin-top-left rtl:right-0 rtl:origin-top-right dark:bg-colorColorModeDarkBackground dark:text-colorColorModeDarkMeta;
     }

@@ -541,25 +541,22 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                     const templates = `
                         <form id='edit_post'>
                             <div class='elcreative_input'>
-                                <input id='titles' name='titles' value='${postTitle}' placeholder=' ' type='text' autocomplete='off' required/>
-                                <label for='titles'>${options.text.textPostTitle}</label>
+                                <input id='titles' name='titles' value='${postTitle}' placeholder='${options.text.textPostTitle}' type='text' autocomplete='off' required/>
                             </div>
                             <div class='elcreative_input'>
-                                <textarea id='description' name='description' cols='15' placeholder=' ' autocomplete='off' resize='horizontal' rows='3' maxlength='150' required>${postDescription}</textarea>
-                                <label for='label'>${options.text.textPostDescription}</label>
+                                <textarea id='description' name='description' cols='15' placeholder='${options.text.textPostDescription}' autocomplete='off' resize='horizontal' rows='3' maxlength='150' required>${postDescription}</textarea>
                             </div>
                             <div class='elcreative_input'>
-                                <input id='label' name='label' value='${postLabel}' placeholder=' ' type='text' autocomplete='off'/>
-                                <label for='label'>${options.text.textPostLabel}</label>
+                                <input id='label' name='label' value='${postLabel}' placeholder='${options.text.textPostLabel}' type='text' autocomplete='off'/>
                             </div>
                             <div class='elcreative_input'>
                                 <select id='status' name='status' class='bg-colorBackground dark:bg-colorColorModeDarkBackground'>
+                                    <option disabled>${options.text.textSaveOptions}</option>
                                     <option value='post_draft' ${postStatus == 'post_draft' ? 'selected' : ''}>${options.text.textSavePostPrivate}</option>
                                     <option value='post_guest' ${postStatus == 'post_guest' ? 'selected' : ''} disabled>${options.text.textSavePostGuest}</option>
                                     <option value='post_private' ${postStatus == 'post_private' ? 'selected' : ''} disabled>${options.text.textSavePostToMyBlog}</option>
                                     <option value='post_public' ${postStatus == 'post_public' ? 'selected' : ''} disabled>${options.text.textSavePostPublic}</option>
                                 </select>
-                                <label for='status'>${options.text.textSaveOptions}</label>
                             </div>
                             <textarea id='post_contents' class='' name='post_contents' resize='horizontal'>${postContent}</textarea>
                             <div class='flex flex-row items-center justify-end mt-4'>
@@ -591,25 +588,22 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
             const templates = `
                 <form id='edit_post'>
                     <div class='elcreative_input'>
-                        <input id='titles' name='titles' placeholder=' ' type='text' autocomplete='off' required/>
-                        <label for='titles'>${options.text.textPostTitle}</label>
+                        <input id='titles' name='titles' placeholder='${options.text.textPostTitle}' type='text' autocomplete='off' required/>
                     </div>
                     <div class='elcreative_input'>
-                        <textarea id='description' name='description' cols='15' placeholder=' ' autocomplete='off' resize='horizontal' rows='3' maxlength='150' required></textarea>
-                        <label for='label'>${options.text.textPostDescription}</label>
+                        <textarea id='description' name='description' cols='15' placeholder='${options.text.textPostDescription}' autocomplete='off' resize='horizontal' rows='3' maxlength='150' required></textarea>
                     </div>
                     <div class='elcreative_input'>
-                        <input id='label' name='label' placeholder=' ' type='text' autocomplete='off'/>
-                        <label for='label'>${options.text.textPostLabel}</label>
+                        <input id='label' name='label' placeholder='${options.text.textPostLabel}' type='text' autocomplete='off'/>
                     </div>
                     <div class='elcreative_input'>
                         <select id='status' name='status' class='bg-colorBackground dark:bg-colorColorModeDarkBackground'>
+                            <option disabled>${options.text.textSaveOptions}</option>
                             <option value='post_draft'>${options.text.textSavePostPrivate}</option>
                             <option value='post_guest' disabled>${options.text.textSavePostGuest}</option>
                             <option value='post_private' disabled>${options.text.textSavePostToMyBlog}</option>
                             <option value='post_public' disabled>${options.text.textSavePostPublic}</option>
                         </select>
-                        <label for='status'>${options.text.textSaveOptions}</label>
                     </div>
                     <textarea id='post_contents' class='' name='post_contents' resize='horizontal'></textarea>
                     <div class='flex flex-row items-center justify-end mt-4'>
@@ -693,7 +687,7 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                             <div class='mt-2 text-center font-medium leading-5 text-colorText dark:text-colorColorModeDarkText'>
                                 ${listAllOptions.userRole == 'admin' ? (userCustomDisplayName ? userCustomDisplayName : userDisplayName) : (userPublic == "true" ? (userCustomDisplayName ? userCustomDisplayName : userDisplayName) : "Private User")}
                             </div>
-                            ${listAllOptions.userRole == 'admin' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey border-0 outline-0 bg-transparent cursor-pointer' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${userPublic == 'false' ? `<svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12' title='Private User' class='ltr:mr-1 rtl:ml-1' title='Private User'>${options.icons.iconLock}</svg>` : ''}<span>${options.text.textViewProfile}</span></button>` : (userPublic == 'true' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${options.text.textViewProfile}</button>` : `<span class="text-xs text-colorMeta dark:text-colorColorModeDarkMeta">${options.text.textHiddenProfile}</span>`)}
+                            ${listAllOptions.userRole == 'admin' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey border-0 outline-0 bg-transparent cursor-pointer' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${userPublic == 'false' ? `<svg fill='currentColor' height='12' viewBox='0 0 24 24' width='12' title='Private User' class='ltr:mr-1 rtl:ml-1' title='Private User'>${options.icons.iconLock}</svg>` : ''}<span>${options.text.textViewProfile}</span></button>` : (userPublic == 'true' ? `<button data-user-id='${collsID}' class='button_view_users inline-flex flex-row items-center justify-center text-xs text-colorKey dark:text-colorColorModeDarkKey border-0 outline-0 bg-transparent cursor-pointer' type='button' data-toggle-target='#dialog_users' data-toggle-class-on-target='active' data-toggle-escape data-toggle-outside>${options.text.textViewProfile}</button>` : `<span class="text-xs text-colorMeta dark:text-colorColorModeDarkMeta">${options.text.textHiddenProfile}</span>`)}
 
                             ${listAllOptions.userRole == 'admin' ? `<button class='elcreative_button_icon elcreative_ripple absolute top-0 ltr:right-0 rtl:left-0' aria-label='More' title='More' aria-expanded='false' aria-haspopup='listbox' data-toggle-class-on-target='active' data-toggle-target='#dropdown_set_remove_admin_${collsID}' data-toggle-escape data-toggle-outside><svg width='14' height='14' viewBox='0 0 24 24' fill='currentColor'>${options.icons.iconMoreVertical}</svg></button>
         
@@ -823,27 +817,23 @@ import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, si
                             </div>
                             <div class='dialog_content'>
                                 <div class='elcreative_input'>
-                                    <input id='names' name='names' value='${userDisplayName}' placeholder=' ' type='text' autocomplete='off'/>
-                                    <label for='name'>${options.text.textName}</label>
+                                    <input id='names' name='names' value='${userDisplayName}' placeholder='${options.text.textName}' type='text' autocomplete='off'/>
                                 </div>
                                 <div class='elcreative_input'>
-                                    <textarea id='bio' name='bio' placeholder=' ' maxlength='150' autocomplete='off'>${userBio ? userBio : ''}</textarea>
-                                    <label for='bio'>${options.text.textBio}</label>
+                                    <textarea id='bio' name='bio' placeholder='${options.text.textBio}' maxlength='150' autocomplete='off'>${userBio ? userBio : ''}</textarea>
                                 </div>
                                 <div class='elcreative_input'>
-                                    <input id='web' name='web' value='${userWebURL ? userWebURL : ''}' placeholder=' ' type='url' autocomplete='off'/>
-                                    <label for='web'>${options.text.textWebURL}</label>
+                                    <input id='web' name='web' value='${userWebURL ? userWebURL : ''}' placeholder='${options.text.textWebURL}' type='url' autocomplete='off'/>
                                 </div>
                                 <div class='elcreative_input'>
-                                    <input id='phone' name='phone' value='${userPhone ? userPhone : ''}' placeholder=' ' type='number' autocomplete='off'/>
-                                    <label for='phone'>${options.text.textPhone}</label>
+                                    <input id='phone' name='phone' value='${userPhone ? userPhone : ''}' placeholder='${options.text.textPhone}' type='number' autocomplete='off'/>
                                 </div>
                                 <div class='elcreative_input'>
                                     <select id='visibility' name='visibility' class='bg-colorBackground dark:bg-colorColorModeDarkBackgroundAlt'>
+                                        <option disabled>${options.text.textProfileVisibility}</option>
                                         <option value='false' ${userPublic ? (userPublic == 'false' ? 'selected' : '') : ''}>${options.text.textProfilePrivate}</option>
                                         <option value='true' ${userPublic ? (userPublic == 'true' ? 'selected' : '') : ''}>${options.text.textProfilePublic}</option>
                                     </select>
-                                    <label for='visibility'>${options.text.textProfileVisibility}</label>
                                 </div>
                                 <div class='mt-2 flex w-full flex-row items-center justify-end'>
                                     <button id='button_profile_save' class='elcreative_button elcreative_ripple raised'>${options.text.textSave}</button>
