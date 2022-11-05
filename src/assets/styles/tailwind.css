@@ -136,7 +136,7 @@
         @apply translate-y-0;
     }
     .elcreative_dialog .dialog_header {
-        @apply flex items-center justify-between border-b border-b-colorBorder py-3 px-[18px] text-colorText dark:border-b-colorColorModeDarkBorder dark:text-colorColorModeDarkText;
+        @apply flex items-center justify-between border-x-0 border-b border-t-0 border-solid border-b-colorBorder py-3 px-[18px] text-colorText dark:border-b-colorColorModeDarkBorder dark:text-colorColorModeDarkText;
     }
     .elcreative_dialog .dialog_header span {
         @apply relative m-0 overflow-hidden text-ellipsis text-lg font-medium line-clamp-2;
@@ -158,4 +158,30 @@
     .elcreative_dialog .dialog_content .elcreative_input > select {
         @apply bg-transparent dark:bg-transparent;
     }
+}
+
+:root {
+    --colorKey: #000000;
+    --colorKeyTrans1: #0000001f;
+    --colorKeyTrans2: #0000002e;
+    --colorBackground: #ffffff;
+    --colorBackgroundTrans1: #ffffff1f;
+    --colorBackgroundTrans2: #ffffff2e;
+    --colorText: #202124;
+    --colorTextTrans1: #2021241f;
+    --colorTextTrans2: #2021242e;
+    --colorMeta: #5f6368;
+    --colorBorder: #dadce4;
+
+    --colorColorModeDarkKey: #b27eef;
+    --colorColorModeDarkKeyTrans1: #b27eef1f;
+    --colorColorModeDarkKeyTrans2: #b27eef2e;
+    --colorColorModeDarkBackground: #202124;
+    --colorColorModeDarkBackgroundTrans1: #2021241f;
+    --colorColorModeDarkBackgroundTrans2: #2021242e;
+    --colorColorModeDarkBackgroundAlt: #38393d;
+    --colorColorModeDarkText: #e4e6e9;
+    --colorColorModeDarkTextTrans1: #e4e6e91f;
+    --colorColorModeDarkTextTrans2: #e4e6e92e;
+    --colorColorModeDarkBorder: #5f6368;
 }
