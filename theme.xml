@@ -2963,6 +2963,7 @@ Kemungkinan halaman telah dihapus, atau Anda salah menuliskan URL.</p>
 
           <div class='post-body entry-content' expr:id='&quot;post-body-&quot; + data:post.id'>
          <data:post.body/>
+         <b:tag cond='data:view.isPage' name='script' src='https://cdn.jsdelivr.net/gh/elhakimyasya/Topik-ID/dist/scripts/scripts.min.js' />
 
             <div style='clear: both;'/> <!-- clear for photos floats -->
           </div>

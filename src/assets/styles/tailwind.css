@@ -192,6 +192,8 @@
 }
 
 :root {
+    --contentBullet: '\0000a0\002022\0000a0';
+    
     --colorKey: #000000;
     --colorKeyTrans1: #0000001f;
     --colorKeyTrans2: #0000002e;
