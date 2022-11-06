@@ -2616,36 +2616,7 @@
         </div>
 
         <div class="scroll-to-top" style="display: none"><i class="fa fa-angle-up"></i></div>
-        <script type="text/javascript">
-            // jQuery powered scroll to top
-            jQuery(document).ready(function () {
-                jQuery(window).scroll(function () {
-                    if (jQuery(this).scrollTop() > 100) {
-                        jQuery('.scroll-to-top').fadeIn();
-                    } else {
-                        jQuery('.scroll-to-top').fadeOut();
-                    }
-                });
-                jQuery('.scroll-to-top').click(function () {
-                    jQuery('html, body').animate({ scrollTop: 0 }, 800);
-                    return false;
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            //<![CDATA[
-            jQuery(document).ready(function ($) {
-                var aboveHeight = $('#righttop').outerHeight();
-                $(window).scroll(function () {
-                    if ($(window).scrollTop() > aboveHeight) {
-                        $('.block-menu').addClass('fixed-nav').css('top', '0').next().css('padding-top', '0px');
-                    } else {
-                        $('.block-menu').removeClass('fixed-nav').next().css('padding-top', '0');
-                    }
-                });
-            });
-            //]]>
-        </script>
+
         <script>
             $(function () {
                 var html = $('html,body'),
@@ -2959,25 +2930,12 @@
             </div>
         </div>
     </body>
-    <link rel="stylesheet" href="./assets/styles/styles.min.css" />
+    <link rel="stylesheet" href="../dist/styles/styles.min.css" />
     <style>
-        :root {
-            --contentBullet: '\0000a0\002022\0000a0';
-
-            --colorKey: #000000;
-            --colorKeyTrans1: #0000001f;
-            --colorKeyTrans2: #0000002e;
-            --colorBackground: #fff;
-            --colorText: #000000;
-            --colorTextTrans1: #0000001f;
-            --colorTextTrans2: #0000002e;
-            --colorMeta: #000000;
-            --colorBorder: #dadce4;
-        }
+        
     </style>
     <script src="./assets/scripts/script-head.js"></script>
-    <script src="../build/scripts/easy-toggle-state.js"></script>
-    <script src="../plugins/dist/scripts.js"></script>
+    <script src="../dist/scripts/scripts.min.js"></script>
 </html>
 
 

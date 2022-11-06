@@ -10,7 +10,10 @@ module.exports = {
         // midtrans: './plugins/midtrans/scripts/script.js',
         // drive: './plugins/drive/scripts/script.js',
         // main: './plugins/scripts.js',
-        scripts: './src/assets/scripts/script.js',
+        scripts: [
+            './src/assets/scripts/libraries/easy-toggle-state.js',
+            './src/assets/scripts/script.js',
+        ],
     },
     module: {
         rules: [
