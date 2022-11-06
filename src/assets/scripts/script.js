@@ -46,7 +46,7 @@ function functionLoadScript(source) {
     })
 };
 
-!((dashboardPage, options) => {
+((dashboardPage, options) => {
     if (location.href.indexOf(dashboardPage) != -1) {
         // Init Firebase
         initializeApp(options.getConfig);
