@@ -2,6 +2,52 @@
 @tailwind utilities;
 
 @layer components {
+    /* Loader */
+    .loader .circular {
+        animation: animRotate 2s linear infinite;
+    }
+    @keyframes animRotate {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    .loader .path {
+        animation: animDash 1.2s ease-in-out infinite, animColor 3s ease-in-out infinite;
+        stroke-linecap: round;
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    @keyframes animDash {
+        0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35px;
+        }
+        100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124px;
+        }
+    }
+    @keyframes animColor {
+        100%,
+        0% {
+            stroke: #4285f4;
+        }
+        40% {
+            stroke: #db4437;
+        }
+        66% {
+            stroke: #f4b400;
+        }
+        80%,
+        90% {
+            stroke: #0f9d58;
+        }
+    }
+    
     /* Input, Select and Textarea */
     .elcreative_input {
         @apply relative my-1 w-full py-1;

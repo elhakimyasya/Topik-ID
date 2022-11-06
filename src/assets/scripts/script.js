@@ -2,6 +2,50 @@ import { initializeApp } from "firebase/app";
 import { addDoc, collection, collectionGroup, deleteDoc, doc, getFirestore, limit, onSnapshot, orderBy, query, serverTimestamp, setDoc, startAfter, updateDoc, where } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
 
+// Create Element
+function functionCreateElement(tag, options) {
+    var element = document.createElement(tag);
+    for (var attributes in options) {
+        // If Has Class Attribute
+        if (attributes == "class") {
+            element.classList.add.apply(element.classList, options[attributes]);
+        } else if (attributes == "content") {
+            element.innerHTML = options[attributes];
+        } else {
+            element[attributes] = options[attributes];
+        }
+    };
+
+    return element
+};
+
+// Load Script Promise
+function functionLoadScript(source) {
+    return new Promise(function (resolve, reject) {
+        var element = functionCreateElement("script", {
+            "src": source,
+            "async": true,
+            "defer": true
+        });
+        var boolean = false;
+
+        element.onload = element.onreadystatechange = function () {
+            if (!boolean && (!this.readyState || this.readyState == "complete")) {
+                boolean = true;
+                resolve();
+            };
+            // console.log(this.readyState);
+        };
+
+        element.onerror = function () {
+            reject(element, source);
+        };
+
+        var elementScript = document.getElementsByTagName("script")[0];
+        elementScript.parentNode.insertBefore(element, elementScript);
+    })
+};
+
 ((dashboardPage, options) => {
     if (location.href.indexOf(dashboardPage) != -1) {
         // Init Firebase

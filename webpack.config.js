@@ -82,8 +82,8 @@ module.exports = {
     },
     output: {
         clean: true,
-        path: path.resolve(__dirname, './plugins/dist'),
-        filename: '[name].js'
+        path: path.resolve(__dirname, './dist/scripts'),
+        filename: 'scripts.min.js'
     },
     watch: true
 }

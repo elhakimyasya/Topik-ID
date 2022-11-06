@@ -5,7 +5,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "build": "npx tailwindcss -i ./src/assets/styles/tailwind.css -o ./src/assets/styles/styles.min.css --minify && gulp build:production",
-    "webpack": "webpack --mode=production"
+    "webpack": "webpack --mode=production",
+    "tailwind": "npx tailwindcss -i ./src/assets/styles/tailwind.css -o ./dist/styles/styles.min.css --minify --watch"
   },
   "keywords": [],
   "author": {
