@@ -2639,105 +2639,8 @@
                 });
             });
         </script>
-        <script type="text/javascript">
-            //<![CDATA[
-            $(function () {
-                if ($('#Sidebar_Kanan').length) {
-                    var el = $('#Sidebar_Kanan');
-                    var stickyTop = $('#Sidebar_Kanan').offset().top;
-                    var stickyHeight = $('#Sidebar_Kanan').height();
-                    $(window).scroll(function () {
-                        var limit = $('#footer-wrapper').offset().top - stickyHeight - 60;
-                        var windowTop = $(window).scrollTop();
-                        if (stickyTop < windowTop) {
-                            el.css({ position: 'fixed', top: 100 });
-                        } else {
-                            el.css('position', 'static');
-                        }
-                        if (limit < windowTop) {
-                            var diff = limit - windowTop;
-                            el.css({ top: diff });
-                        }
-                    });
-                }
-            });
-            //]]>
-        </script>
-        <script>
-            $('.entry-thumb img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.post-thumbnail img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.gambar img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.gambar1 img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.gambarku img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.related-post img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.Area_Rubrik img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('#item-snippet img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('#item-thumbnail-only img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.item-thumbnail img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-            $('.gambar-w4 img').each(function () {
-                $(this).attr('src', $(this).attr('src').replace('default.jpg', 'mqdefault.jpg'));
-            });
-        </script>
-        <script async="async" type="text/javascript">
-            //<![CDATA[
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker
-                        .register('/sw.js')
-                        .then((registration) => {})
-                        .catch((registrationError) => {
-                            console.log('SW registration failed: ', registrationError);
-                        });
-                });
-            }
-            //]]>
-        </script>
-        <script async="async" type="text/javascript">
-            //<![CDATA[
-            const installButton = document.getElementById('install_button');
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                installButton.hidden = false;
-                installButton.addEventListener('click', installApp);
-            });
-            function installApp() {
-                deferredPrompt.prompt();
-                installButton.disabled = true;
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        installButton.hidden = true;
-                    } else {
-                    }
-                    installButton.disabled = false;
-                    deferredPrompt = null;
-                });
-            }
-            window.addEventListener('appinstalled', (evt) => {
-                console.log('appinstalled fired', evt);
-            });
-            //]]>
-        </script>
+       
+        
 
         <div class="pop-area" id="cart-modal">
             <div class="pop-html">
@@ -2751,7 +2654,8 @@
         
     </style>
     <script src="./assets/scripts/script-head.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/elhakimyasya/Topik-ID/dist/scripts/scripts.min.js"></script>
+    <script src="../dist/scripts/scripts.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/elhakimyasya/Topik-ID/dist/scripts/scripts.min.js"></script> -->
 </html>
 
 
