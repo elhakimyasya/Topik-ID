@@ -3,7 +3,7 @@ import { addDoc, collection, collectionGroup, deleteDoc, doc, getFirestore, limi
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
 
 // Create Element
-function functionCreateElement(tag, options) {
+const functionCreateElement = (tag, options) => {
     var element = document.createElement(tag);
     for (var attributes in options) {
         // If Has Class Attribute
@@ -20,7 +20,7 @@ function functionCreateElement(tag, options) {
 };
 
 // Load Script Promise
-function functionLoadScript(source) {
+const functionLoadScript = (source) => {
     return new Promise(function (resolve, reject) {
         var element = functionCreateElement("script", {
             "src": source,
