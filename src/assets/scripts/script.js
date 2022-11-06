@@ -46,354 +46,412 @@ function functionLoadScript(source) {
     })
 };
 
-((dashboardPage, options) => {
-    if (location.href.indexOf(dashboardPage) != -1) {
-        // Init Firebase
-        initializeApp(options.getConfig);
+const elementPostBody = document.querySelector('.post-body')
+const firebaseConfig = {
+    apiKey: "AIzaSyCbeiP66A3aS68k7JJYOrIr5_jHvQ50OVI",
+    authDomain: "materia-auth.firebaseapp.com",
+    projectId: "materia-auth",
+    storageBucket: "materia-auth.appspot.com",
+    messagingSenderId: "497337413673",
+    appId: "1:497337413673:web:357a3bdbe41624fd86ac38",
+    measurementId: "G-YSV1HV0BJS",
+};
+const elcreativeConfig = {
+    with: {
+        translateBio: "Tentang Saya",
+        translateCreateNewPost: "Buat Postingan Baru",
+        translateEditProfile: "Edit Profil",
+        translateMyPosts: "Postingan Saya",
+        translateName: "Nama",
+        translatePhone: "Nomor Handphone",
+        translateProfileVisibility: "Visibilitas Profil",
+        translateProfilePrivate: "Tersembunyi untuk publik",
+        translateProfilePublic: "Terlihat untuk publik",
+        translateSignOut: "Keluar",
+        translateSave: "Simpan",
+        translateWebURL: "URL Blog/Website",
+        translateViewPost: "Lihat Postingan",
+        translateEditPost: "Edit Postingan",
+        translateDeletePost: "Hapus Postingan",
+        translateLoadMore: "Muat Selanjutnya",
+        translateConfirm: "Apakah anda yakin?",
+        translatePostTitle: "Judul Postingan",
+        translatePostDescription: "Deskripsi/Ringkasan Postingan",
+        translatePostLabel: "Label Postingan",
+        translateSaveOptions: "Opsi Simpan",
+        translateSavePostPrivate: "Draft",
+        translateSavePostGuest: "Guest",
+        translateSavePostMyBlog: "Private",
+        translateSavePostPublic: "Public",
+        translateCancel: "Batalkan",
+        translateAllPosts: "Semua Postingan",
+        translateUsers: "Pengguna",
+        translateViewProfile: "Lihat Profil",
+        translateHiddenProfile: "Profil Disembunyikan",
+        translateSetAdmin: "Jadikan Admin",
+        translateSetUser: "Jadikan Pengguna",
+    },
+    include: {
+        iconLoader: `<div class='loader mx-auto h-11 w-11 my-3'><svg class='circular animate-[animRotate_2s_linear_infinite]' height='42' viewBox='25 25 50 50' width='42'><circle class='animate-[animDash_1.2s_ease-in-out_infinite,animColor_3s_ease-in-out_infinite]' cx='50' cy='50' fill='none' r='20' stroke-miterlimit='10' stroke-width='4'></circle></svg></div>`,
+        iconVerified: `<path d='M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z' />`,
+        iconSettings: `<path d='M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10M10,22C9.75,22 9.54,21.82 9.5,21.58L9.13,18.93C8.5,18.68 7.96,18.34 7.44,17.94L4.95,18.95C4.73,19.03 4.46,18.95 4.34,18.73L2.34,15.27C2.21,15.05 2.27,14.78 2.46,14.63L4.57,12.97L4.5,12L4.57,11L2.46,9.37C2.27,9.22 2.21,8.95 2.34,8.73L4.34,5.27C4.46,5.05 4.73,4.96 4.95,5.05L7.44,6.05C7.96,5.66 8.5,5.32 9.13,5.07L9.5,2.42C9.54,2.18 9.75,2 10,2H14C14.25,2 14.46,2.18 14.5,2.42L14.87,5.07C15.5,5.32 16.04,5.66 16.56,6.05L19.05,5.05C19.27,4.96 19.54,5.05 19.66,5.27L21.66,8.73C21.79,8.95 21.73,9.22 21.54,9.37L19.43,11L19.5,12L19.43,13L21.54,14.63C21.73,14.78 21.79,15.05 21.66,15.27L19.66,18.73C19.54,18.95 19.27,19.04 19.05,18.95L16.56,17.95C16.04,18.34 15.5,18.68 14.87,18.93L14.5,21.58C14.46,21.82 14.25,22 14,22H10M11.25,4L10.88,6.61C9.68,6.86 8.62,7.5 7.85,8.39L5.44,7.35L4.69,8.65L6.8,10.2C6.4,11.37 6.4,12.64 6.8,13.8L4.68,15.36L5.43,16.66L7.86,15.62C8.63,16.5 9.68,17.14 10.87,17.38L11.24,20H12.76L13.13,17.39C14.32,17.14 15.37,16.5 16.14,15.62L18.57,16.66L19.32,15.36L17.2,13.81C17.6,12.64 17.6,11.37 17.2,10.2L19.31,8.65L18.56,7.35L16.15,8.39C15.38,7.5 14.32,6.86 13.12,6.62L12.75,4H11.25Z' />`,
+        iconClose: `<path d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' />`,
+        iconMoreVertical: `<path d='M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z' />`,
+        iconLock: `<path d='M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z' />`,
+    },
+    dataMessages: {
+        noResultsFound: "Tidak ada hasil yang ditemukan",
+    }
+}
 
-        // Checking URLS and its params
-        const urls = window.location.toString();
-        if (urls.indexOf('&m=1', '&m=1') > 0) {
-            const clean_uri = urls.substring(0, urls.indexOf('&m=1'));
-            window.history.replaceState({}, document.title, clean_uri);
-        }
-        if (urls.indexOf('?m=1', '?m=1') > 0) {
-            const clean_uri = urls.substring(0, urls.indexOf('?m=1'));
-            window.history.replaceState({}, document.title, clean_uri);
-        };
-        let dashboardUrl;
-        window.location.href.split('?').pop().split('&').map((urls) => {
-            return dashboardUrl = urls.replace('%3D', '=').split('=');
-        });
+    ((dashboardPage, options) => {
+        if (location.href.indexOf(dashboardPage) != -1) {
+            // Init Firebase
+            initializeApp(options.getConfig);
 
-        const firestoreDatabase = getFirestore();
-        const firebaseAuth = getAuth();
+            // Checking URLS and its params
+            const urls = window.location.toString();
+            if (urls.indexOf('&m=1', '&m=1') > 0) {
+                const clean_uri = urls.substring(0, urls.indexOf('&m=1'));
+                window.history.replaceState({}, document.title, clean_uri);
+            }
+            if (urls.indexOf('?m=1', '?m=1') > 0) {
+                const clean_uri = urls.substring(0, urls.indexOf('?m=1'));
+                window.history.replaceState({}, document.title, clean_uri);
+            };
+            let dashboardUrl;
+            window.location.href.split('?').pop().split('&').map((urls) => {
+                return dashboardUrl = urls.replace('%3D', '=').split('=');
+            });
 
-        const formatDate = (dateData) => {
-            const day = dateData.toDate().getDate();
-            const month = dateData.toDate().toLocaleString('default', { month: 'long' });
-            const year = dateData.toDate().getFullYear();
+            const firestoreDatabase = getFirestore();
+            const firebaseAuth = getAuth();
 
-            return `${month} ${day}, ${year}`;
-        };
+            const formatDate = (dateData) => {
+                const day = dateData.toDate().getDate();
+                const month = dateData.toDate().toLocaleString('default', { month: 'long' });
+                const year = dateData.toDate().getFullYear();
 
-        const postEditor = (reference, postEditorOptions) => {
-            const tinyMCEOptions = {
-                selector: '#post_contents',
-                branding: false,
-                menubar: 'file edit view insert format tools table custom',
-                contextmenu: false,
-                plugins: 'link image preview codesample table toc wordcount code lists insertdatetime emoticons visualblocks autoresize',
-                toolbar: 'formatselect | bold italic underline strikethrough superscript subscript blockquote | link image | alignleft aligncenter alignright alignjustify bullist numlist | table toc | codesample preview insertdatetime emoticons visualblocks code',
-                toolbar_sticky: true,
-                toolbar_sticky_offset: 64,
-                toc_class: 'elcTOC',
-                toc_depth: 6,
-                content_css: 'https://cdn.jsdelivr.net/gh/elhakimyasya/Bloggeria@main/dist/styles/materia-auth-tinymce.min.css',
-                content_css_cors: true,
-                extended_valid_elements: 'img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]',
-                insertdatetime_formats: ['Updated: %A, %d %B %Y'],
-                // skin: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide'),
-                // skin: useDarkMode ? 'oxide-dark' : 'oxide',
-                mobile: {
-                    menubar: 'file edit view insert format tools table custom',
-                    toolbar_sticky: true,
-                },
-                rel_list: [{ // link_rel_list
-                    title: 'Internal Link',
-                    value: ''
-                }, {
-                    title: 'External Link',
-                    value: 'noopener noreferer nofollow'
-                }],
-                codesample_languages: [{
-                    text: 'Command Line',
-                    value: 'command hljs hl hljs'
-                }, {
-                    text: 'CSS',
-                    value: 'css hljs hl css'
-                }, {
-                    text: 'C',
-                    value: 'c hljs hl c'
-                }, {
-                    text: 'C++',
-                    value: 'cpp hljs hl cpp'
-                }, {
-                    text: 'HTML/XML',
-                    value: 'html hljs hl html xml'
-                }, {
-                    text: 'Java',
-                    value: 'java hljs hl java'
-                }, {
-                    text: 'JavaScript',
-                    value: 'javascript hljs hl javascript'
-                }, {
-                    text: 'JSON',
-                    value: 'json hljs hl json'
-                }, {
-                    text: 'Markdown',
-                    value: 'markdown hljs hl markdown'
-                }, {
-                    text: 'PHP',
-                    value: 'php hljs hl php'
-                }, {
-                    text: 'Python',
-                    value: 'python hljs hl python'
-                }, {
-                    text: 'TypeScript',
-                    value: 'typescript hljs hl typescript'
-                }],
-
-                menu: {
-                    custom: {
-                        title: 'Components',
-                        items: 'alerts buttons     basicitem toggleitem'
-                    }
-                },
-                setup: function (editor) {
-                    var toggleState = false;
-
-                    editor.ui.registry.addNestedMenuItem('alerts', {
-                        text: 'Alerts',
-
-                        getSubmenuItems: function () {
-                            return [
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert - Default',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert'>Alert</div>\n`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert - Info',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_info'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert - Success',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_success'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert - Warning',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_warning'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert - Error',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_error'>Alert</div>`);
-                                    }
-                                },
-
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert Outline - Default',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_outline'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert Outline - Info',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_outline alert_info'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert Outline - Success',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_outline alert_success'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert Outline - Warning',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_outline alert_warning'>Alert</div>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Alert Outline - Error',
-                                    onAction: function () {
-                                        editor.insertContent(`<div class='elcreative_alert alert_outline alert_error'>Alert</div>`);
-                                    }
-                                }
-                            ];
-                        }
-                    });
-
-                    editor.ui.registry.addNestedMenuItem('buttons', {
-                        text: 'Button Link',
-
-                        getSubmenuItems: function () {
-                            return [
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button - Default',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button - Outlined',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple outlined' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button - Unelevated',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple unelevated' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button - Raised',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple raised' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button Rounded - Default',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button Rounded - Outlined',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded outlined' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button Rounded - Unelevated',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded unelevated' href='#'>Button</a>`);
-                                    }
-                                },
-                                {
-                                    type: 'menuitem',
-                                    text: 'Button Rounded - Raised',
-                                    onAction: function () {
-                                        editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded raised' href='#'>Button</a>`);
-                                    }
-                                },
-                            ]
-                        }
-                    });
-
-                    // editor.ui.registry.addMenuItem('basicitem', {
-                    //     text: 'My basic menu item',
-                    //     onAction: function () {
-                    //         editor.insertContent('<p>Here\'s some content inserted from a basic menu!</p>');
-                    //     }
-                    // });
-
-                    // editor.ui.registry.addToggleMenuItem('toggleitem', {
-                    //     text: 'My toggle menu item',
-                    //     onAction: function () {
-                    //         toggleState = !toggleState;
-                    //         editor.insertContent('<p class='toggle-item'>Here\'s some content inserted from a toggle menu!</p>');
-                    //     },
-                    //     onSetup: function (api) {
-                    //         api.setActive(toggleState);
-                    //         return function () { };
-                    //     }
-                    // });
-                }
+                return `${month} ${day}, ${year}`;
             };
 
-            functionLoadScript('https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.5/tinymce.min.js').then(() => {
-                tinymce.init(tinyMCEOptions);
+            const postEditor = (reference, postEditorOptions) => {
+                const tinyMCEOptions = {
+                    selector: '#post_contents',
+                    branding: false,
+                    menubar: 'file edit view insert format tools table custom',
+                    contextmenu: false,
+                    plugins: 'link image preview codesample table toc wordcount code lists insertdatetime emoticons visualblocks autoresize',
+                    toolbar: 'formatselect | bold italic underline strikethrough superscript subscript blockquote | link image | alignleft aligncenter alignright alignjustify bullist numlist | table toc | codesample preview insertdatetime emoticons visualblocks code',
+                    toolbar_sticky: true,
+                    toolbar_sticky_offset: 64,
+                    toc_class: 'elcTOC',
+                    toc_depth: 6,
+                    content_css: 'https://cdn.jsdelivr.net/gh/elhakimyasya/Bloggeria@main/dist/styles/materia-auth-tinymce.min.css',
+                    content_css_cors: true,
+                    extended_valid_elements: 'img[src|loading=lazy|alt|title|width|height|align|onmouseover|onmouseout|name]',
+                    insertdatetime_formats: ['Updated: %A, %d %B %Y'],
+                    // skin: (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oxide-dark' : 'oxide'),
+                    // skin: useDarkMode ? 'oxide-dark' : 'oxide',
+                    mobile: {
+                        menubar: 'file edit view insert format tools table custom',
+                        toolbar_sticky: true,
+                    },
+                    rel_list: [{ // link_rel_list
+                        title: 'Internal Link',
+                        value: ''
+                    }, {
+                        title: 'External Link',
+                        value: 'noopener noreferer nofollow'
+                    }],
+                    codesample_languages: [{
+                        text: 'Command Line',
+                        value: 'command hljs hl hljs'
+                    }, {
+                        text: 'CSS',
+                        value: 'css hljs hl css'
+                    }, {
+                        text: 'C',
+                        value: 'c hljs hl c'
+                    }, {
+                        text: 'C++',
+                        value: 'cpp hljs hl cpp'
+                    }, {
+                        text: 'HTML/XML',
+                        value: 'html hljs hl html xml'
+                    }, {
+                        text: 'Java',
+                        value: 'java hljs hl java'
+                    }, {
+                        text: 'JavaScript',
+                        value: 'javascript hljs hl javascript'
+                    }, {
+                        text: 'JSON',
+                        value: 'json hljs hl json'
+                    }, {
+                        text: 'Markdown',
+                        value: 'markdown hljs hl markdown'
+                    }, {
+                        text: 'PHP',
+                        value: 'php hljs hl php'
+                    }, {
+                        text: 'Python',
+                        value: 'python hljs hl python'
+                    }, {
+                        text: 'TypeScript',
+                        value: 'typescript hljs hl typescript'
+                    }],
 
-                let formClicker = 0;
-                postEditorOptions.form.addEventListener('submit', (event) => {
-                    event.preventDefault();
+                    menu: {
+                        custom: {
+                            title: 'Components',
+                            items: 'alerts buttons     basicitem toggleitem'
+                        }
+                    },
+                    setup: function (editor) {
+                        var toggleState = false;
 
-                    let contentReplace = {
-                        '"': '"',
-                        mcetoc: 'elcreative_toc'
-                    };
+                        editor.ui.registry.addNestedMenuItem('alerts', {
+                            text: 'Alerts',
 
-                    event = tinymce.get('post_contents').getContent().replace(/"|mcetoc/g, function (result) {
-                        return contentReplace[result];
-                    });
+                            getSubmenuItems: function () {
+                                return [
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert - Default',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert'>Alert</div>\n`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert - Info',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_info'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert - Success',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_success'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert - Warning',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_warning'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert - Error',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_error'>Alert</div>`);
+                                        }
+                                    },
 
-                    if (postEditorOptions.updatePost) {
-                        updateDoc(reference, {
-                            title: postEditorOptions.form.titles.value,
-                            label: postEditorOptions.form.label.value,
-                            status: postEditorOptions.form.status.value,
-                            content: decodeURI(event),
-                            updatedAt: serverTimestamp(),
-                            description: postEditorOptions.form.description.value,
-                        }).then(() => {
-                            window.location.href = `?post-view=${dashboardUrl[2] ? `${postEditorOptions.docID}=${dashboardUrl[2]}` : postEditorOptions.docID}`
-                        })
-                    } else {
-                        ++formClicker;
-                        if (formClicker == 1) {
-                            addDoc(reference, {
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert Outline - Default',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_outline'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert Outline - Info',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_outline alert_info'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert Outline - Success',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_outline alert_success'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert Outline - Warning',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_outline alert_warning'>Alert</div>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Alert Outline - Error',
+                                        onAction: function () {
+                                            editor.insertContent(`<div class='elcreative_alert alert_outline alert_error'>Alert</div>`);
+                                        }
+                                    }
+                                ];
+                            }
+                        });
+
+                        editor.ui.registry.addNestedMenuItem('buttons', {
+                            text: 'Button Link',
+
+                            getSubmenuItems: function () {
+                                return [
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button - Default',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button - Outlined',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple outlined' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button - Unelevated',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple unelevated' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button - Raised',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple raised' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button Rounded - Default',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button Rounded - Outlined',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded outlined' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button Rounded - Unelevated',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded unelevated' href='#'>Button</a>`);
+                                        }
+                                    },
+                                    {
+                                        type: 'menuitem',
+                                        text: 'Button Rounded - Raised',
+                                        onAction: function () {
+                                            editor.insertContent(`<a class='elcreative_button elcreative_ripple rounded raised' href='#'>Button</a>`);
+                                        }
+                                    },
+                                ]
+                            }
+                        });
+
+                        // editor.ui.registry.addMenuItem('basicitem', {
+                        //     text: 'My basic menu item',
+                        //     onAction: function () {
+                        //         editor.insertContent('<p>Here\'s some content inserted from a basic menu!</p>');
+                        //     }
+                        // });
+
+                        // editor.ui.registry.addToggleMenuItem('toggleitem', {
+                        //     text: 'My toggle menu item',
+                        //     onAction: function () {
+                        //         toggleState = !toggleState;
+                        //         editor.insertContent('<p class='toggle-item'>Here\'s some content inserted from a toggle menu!</p>');
+                        //     },
+                        //     onSetup: function (api) {
+                        //         api.setActive(toggleState);
+                        //         return function () { };
+                        //     }
+                        // });
+                    }
+                };
+
+                functionLoadScript('https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.10.5/tinymce.min.js').then(() => {
+                    tinymce.init(tinyMCEOptions);
+
+                    let formClicker = 0;
+                    postEditorOptions.form.addEventListener('submit', (event) => {
+                        event.preventDefault();
+
+                        let contentReplace = {
+                            '"': '"',
+                            mcetoc: 'elcreative_toc'
+                        };
+
+                        event = tinymce.get('post_contents').getContent().replace(/"|mcetoc/g, function (result) {
+                            return contentReplace[result];
+                        });
+
+                        if (postEditorOptions.updatePost) {
+                            updateDoc(reference, {
                                 title: postEditorOptions.form.titles.value,
                                 label: postEditorOptions.form.label.value,
-                                author: postEditorOptions.data.displayName,
-                                authorUID: postEditorOptions.data.uid,
                                 status: postEditorOptions.form.status.value,
                                 content: decodeURI(event),
-                                createdAt: serverTimestamp(),
                                 updatedAt: serverTimestamp(),
                                 description: postEditorOptions.form.description.value,
                             }).then(() => {
-                                postEditorOptions.form.reset();
-                                window.location.href = dashboardPage
-                            });
+                                window.location.href = `?post-view=${dashboardUrl[2] ? `${postEditorOptions.docID}=${dashboardUrl[2]}` : postEditorOptions.docID}`
+                            })
                         } else {
-                            window.location.reload()
+                            ++formClicker;
+                            if (formClicker == 1) {
+                                addDoc(reference, {
+                                    title: postEditorOptions.form.titles.value,
+                                    label: postEditorOptions.form.label.value,
+                                    author: postEditorOptions.data.displayName,
+                                    authorUID: postEditorOptions.data.uid,
+                                    status: postEditorOptions.form.status.value,
+                                    content: decodeURI(event),
+                                    createdAt: serverTimestamp(),
+                                    updatedAt: serverTimestamp(),
+                                    description: postEditorOptions.form.description.value,
+                                }).then(() => {
+                                    postEditorOptions.form.reset();
+                                    window.location.href = dashboardPage
+                                });
+                            } else {
+                                window.location.reload()
+                            }
                         }
-                    }
-                })
-            })
-        }
-
-        const postDelete = (postID, userUID) => {
-            if (confirm(options.text.textConfirm)) {
-                deleteDoc(doc(firestoreDatabase, `users/${userUID}/posts/${postID}`)).then(() => {
-                    window.location.href = dashboardPage
-                }).catch((error) => {
-                    console.log(error)
+                    })
                 })
             }
-        };
 
-        const postList = (referenceCollPost, postListOptions) => {
-            const subsPostListUser = onSnapshot(referenceCollPost, (coll) => {
-                let templates = '';
-                coll.docs.forEach((colls) => {
-                    const collsData = colls.data();
-                    const postID = colls.id;
-                    const postTitle = collsData.title;
-                    const postAuthor = collsData.author;
-                    const postCreatedAt = formatDate(collsData.createdAt);
-                    const postDescription = collsData.description;
-                    const postStatus = collsData.status;
+            const postDelete = (postID, userUID) => {
+                if (confirm(options.text.textConfirm)) {
+                    deleteDoc(doc(firestoreDatabase, `users/${userUID}/posts/${postID}`)).then(() => {
+                        window.location.href = dashboardPage
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                }
+            };
 
-                    templates += `
+            const postList = (referenceCollPost, postListOptions) => {
+                const subsPostListUser = onSnapshot(referenceCollPost, (coll) => {
+                    let templates = '';
+                    coll.docs.forEach((colls) => {
+                        const collsData = colls.data();
+                        const postID = colls.id;
+                        const postTitle = collsData.title;
+                        const postAuthor = collsData.author;
+                        const postCreatedAt = formatDate(collsData.createdAt);
+                        const postDescription = collsData.description;
+                        const postStatus = collsData.status;
+
+                        templates += `
                         <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder border-solid border-t-0 border-x-0'>
                             <a href='?post-view=${postID}' class='mb-1 w-full text-colorText hover:text-colorKey ltr:pr-9 rtl:pl-9 dark:text-colorColorModeDarkText dark:hover:text-colorColorModeDarkKey'><span class='w-full font-bold'>${postTitle}</span></a>
         
@@ -415,52 +473,52 @@ function functionLoadScript(source) {
                             </div>
                         </div>
                     `
-                });
-
-                postListOptions.container.innerHTML += templates != '' ? `${templates}<div class='flex items-center justify-center flex-row w-full'><button id='next_data' class='elcreative_button elcreative_ripple relative w-full' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button></div>` : `<p class='my-3 noresult text-sm text-center'>${options.text.textNoResult}</p>`;
-
-                const buttonPostDelete = postListOptions.container.querySelectorAll('.button_delete_post');
-                buttonPostDelete && buttonPostDelete.forEach((element, index) => {
-                    element.addEventListener('click', (event) => {
-                        event.preventDefault();
-
-                        postDelete(element.getAttribute('data-post-id'), postListOptions.userUID);
-                    }, false)
-                });
-
-                const collLength = coll.docs[coll.docs.length - 1] != undefined ? coll.docs[coll.docs.length - 1] : null;
-                const buttonLoadMore = postListOptions.container.querySelector('#next_data');
-                buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    postList(query(postListOptions.referenceCollPost, orderBy('createdAt', 'desc'), startAfter(collLength), limit(options.limitPostList)), {
-                        container: postListOptions.container,
-                        referenceCollPost: postListOptions.referenceCollPost,
-                        userUID: postListOptions.userUID,
                     });
 
-                    buttonLoadMore.remove()
+                    postListOptions.container.innerHTML += templates != '' ? `${templates}<div class='flex items-center justify-center flex-row w-full'><button id='next_data' class='elcreative_button elcreative_ripple relative w-full' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button></div>` : `<p class='my-3 noresult text-sm text-center'>${options.text.textNoResult}</p>`;
+
+                    const buttonPostDelete = postListOptions.container.querySelectorAll('.button_delete_post');
+                    buttonPostDelete && buttonPostDelete.forEach((element, index) => {
+                        element.addEventListener('click', (event) => {
+                            event.preventDefault();
+
+                            postDelete(element.getAttribute('data-post-id'), postListOptions.userUID);
+                        }, false)
+                    });
+
+                    const collLength = coll.docs[coll.docs.length - 1] != undefined ? coll.docs[coll.docs.length - 1] : null;
+                    const buttonLoadMore = postListOptions.container.querySelector('#next_data');
+                    buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
+                        event.preventDefault();
+
+                        postList(query(postListOptions.referenceCollPost, orderBy('createdAt', 'desc'), startAfter(collLength), limit(options.limitPostList)), {
+                            container: postListOptions.container,
+                            referenceCollPost: postListOptions.referenceCollPost,
+                            userUID: postListOptions.userUID,
+                        });
+
+                        buttonLoadMore.remove()
+                    })
+
+                    !coll.metadata.hasPendingWrites && subsPostListUser();
+                    window.easyToggleState();
                 })
+            };
 
-                !coll.metadata.hasPendingWrites && subsPostListUser();
-                window.easyToggleState();
-            })
-        };
+            const postListAll = (referenceCollPostAll, postListAllOptions) => {
+                const subsPostListAll = onSnapshot(referenceCollPostAll, (doc) => {
+                    let templates = '';
+                    doc.docs.forEach((collUsers) => {
+                        const collsData = collUsers.data();
+                        const postID = collUsers.id;
+                        const postTitle = collsData.title;
+                        const postAuthor = collsData.author;
+                        const postCreatedAt = formatDate(collsData.createdAt);
+                        const postDescription = collsData.description;
+                        const postStatus = collsData.status;
+                        const authorUID = collsData.authorUID;
 
-        const postListAll = (referenceCollPostAll, postListAllOptions) => {
-            const subsPostListAll = onSnapshot(referenceCollPostAll, (doc) => {
-                let templates = '';
-                doc.docs.forEach((collUsers) => {
-                    const collsData = collUsers.data();
-                    const postID = collUsers.id;
-                    const postTitle = collsData.title;
-                    const postAuthor = collsData.author;
-                    const postCreatedAt = formatDate(collsData.createdAt);
-                    const postDescription = collsData.description;
-                    const postStatus = collsData.status;
-                    const authorUID = collsData.authorUID;
-
-                    templates += `
+                        templates += `
                         <div class='relative mb-3 flex w-full flex-col items-start justify-center border-b border-colorBorder pb-3 last:mb-0 last:border-b-0 last:pb-0 dark:border-colorColorModeDarkBorder border-solid border-t-0 border-x-0'>
                         <a href='?post-view=${postID}=${authorUID}' class='mb-1 w-full text-colorText hover:text-colorKey ltr:pr-9 rtl:pl-9 dark:text-colorColorModeDarkText dark:hover:text-colorColorModeDarkKey'><span class='w-full font-bold'>${postTitle}</span></a>
 
@@ -482,52 +540,52 @@ function functionLoadScript(source) {
                         </div>
                     </div>
                     `
-                });
-
-                postListAllOptions.containerPost.innerHTML += templates != '' ? `${templates}<div class='flex items-center justify-center flex-row w-full'><button id='next_data' class='elcreative_button elcreative_ripple relative w-full' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button></div>` : `<p class='my-3 text-sm noresult text-center'>${options.text.textNoResult}</p>`;
-
-                const buttonPostDelete = postListAllOptions.containerPost.querySelectorAll('.button_delete_post');
-                buttonPostDelete && buttonPostDelete.forEach((element, index) => {
-                    element.addEventListener('click', (event) => {
-                        event.preventDefault();
-
-                        postDelete(element.getAttribute('data-post-id'), element.getAttribute('data-author-id'));
-                    }, false)
-                });
-
-                const collLength = doc.docs[doc.docs.length - 1] != undefined ? doc.docs[doc.docs.length - 1] : null;
-                const buttonLoadMore = postListAllOptions.containerPost.querySelector('#next_data');
-                buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    postListAll(query(collectionGroup(firestoreDatabase, 'posts'), where('status', '==', 'post_draft'), startAfter(collLength), limit(options.limitPostList)), {
-                        userUID: postListAllOptions.userUID,
-                        userRole: postListAllOptions.userRole,
-                        containerPost: postListAllOptions.containerPost,
                     });
 
-                    buttonLoadMore.remove()
+                    postListAllOptions.containerPost.innerHTML += templates != '' ? `${templates}<div class='flex items-center justify-center flex-row w-full'><button id='next_data' class='elcreative_button elcreative_ripple relative w-full' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button></div>` : `<p class='my-3 text-sm noresult text-center'>${options.text.textNoResult}</p>`;
+
+                    const buttonPostDelete = postListAllOptions.containerPost.querySelectorAll('.button_delete_post');
+                    buttonPostDelete && buttonPostDelete.forEach((element, index) => {
+                        element.addEventListener('click', (event) => {
+                            event.preventDefault();
+
+                            postDelete(element.getAttribute('data-post-id'), element.getAttribute('data-author-id'));
+                        }, false)
+                    });
+
+                    const collLength = doc.docs[doc.docs.length - 1] != undefined ? doc.docs[doc.docs.length - 1] : null;
+                    const buttonLoadMore = postListAllOptions.containerPost.querySelector('#next_data');
+                    buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
+                        event.preventDefault();
+
+                        postListAll(query(collectionGroup(firestoreDatabase, 'posts'), where('status', '==', 'post_draft'), startAfter(collLength), limit(options.limitPostList)), {
+                            userUID: postListAllOptions.userUID,
+                            userRole: postListAllOptions.userRole,
+                            containerPost: postListAllOptions.containerPost,
+                        });
+
+                        buttonLoadMore.remove()
+                    })
+
+                    !doc.metadata.hasPendingWrites && subsPostListAll();
+                    window.easyToggleState();
                 })
+            }
 
-                !doc.metadata.hasPendingWrites && subsPostListAll();
-                window.easyToggleState();
-            })
-        }
+            const postView = (referenceDocPosts, postViewOptions) => {
+                const subsPostView = onSnapshot(referenceDocPosts, (doc) => {
+                    const docID = doc.id;
+                    const docData = doc.data();
 
-        const postView = (referenceDocPosts, postViewOptions) => {
-            const subsPostView = onSnapshot(referenceDocPosts, (doc) => {
-                const docID = doc.id;
-                const docData = doc.data();
+                    if (docData != undefined) {
+                        const postLabel = docData.label;
+                        const postTitle = docData.title;
+                        const postDescription = docData.description;
+                        const postAuthor = docData.author;
+                        const postCreatedAt = formatDate(docData.createdAt);
+                        const postContent = docData.content;
 
-                if (docData != undefined) {
-                    const postLabel = docData.label;
-                    const postTitle = docData.title;
-                    const postDescription = docData.description;
-                    const postAuthor = docData.author;
-                    const postCreatedAt = formatDate(docData.createdAt);
-                    const postContent = docData.content;
-
-                    const templateHeader = `
+                        const templateHeader = `
                         <nav class='mb-2 flex flex-row items-center justify-start text-sm text-colorMeta dark:text-colorColorModeDarkMeta'><a href='${dashboardPage}' title='Dashboard' class='relative text-colorItemMeta dark:text-colorColorModeDarkMeta'>Dashboard</a>${postLabel ? `<span class='mx-2'>/</span><span>${postLabel}</span>` : ''}</nav>
 
                         <h1 class='mb-2 w-full text-2xl font-bold text-colorText dark:text-colorColorModeDarkText'>${postTitle}</h1>
@@ -551,38 +609,38 @@ function functionLoadScript(source) {
                         </div>
                     `;
 
-                    options.elements.elementPostHeader.innerHTML = templateHeader;
-                    options.elements.elementContainer.innerHTML = postContent;
+                        options.elements.elementPostHeader.innerHTML = templateHeader;
+                        options.elements.elementContainer.innerHTML = postContent;
 
-                    const buttonPostDelete = options.elements.elementPostHeader.querySelector('.button_delete_post');
-                    buttonPostDelete && buttonPostDelete.addEventListener('click', () => {
-                        postDelete(docID, dashboardUrl[2] ? dashboardUrl[2] : postViewOptions.userUID);
-                    }, false);
+                        const buttonPostDelete = options.elements.elementPostHeader.querySelector('.button_delete_post');
+                        buttonPostDelete && buttonPostDelete.addEventListener('click', () => {
+                            postDelete(docID, dashboardUrl[2] ? dashboardUrl[2] : postViewOptions.userUID);
+                        }, false);
 
-                    !doc.metadata.fromCache || !doc.metadata.hasPendingWrites && subsPostView();
-                    window.easyToggleState();
-                } else {
-                    window.location.href = dashboardPage
-                }
-            }, (error) => {
-                if (error) window.location.href = dashboardPage
-            })
-        };
+                        !doc.metadata.fromCache || !doc.metadata.hasPendingWrites && subsPostView();
+                        window.easyToggleState();
+                    } else {
+                        window.location.href = dashboardPage
+                    }
+                }, (error) => {
+                    if (error) window.location.href = dashboardPage
+                })
+            };
 
-        const postEdit = (referenceDocPosts) => {
-            const subsPostEdit = onSnapshot(referenceDocPosts, (doc) => {
-                const docID = doc.id;
-                const docData = doc.data();
-                if (docData != undefined) {
-                    const postLabel = docData.label;
-                    const postTitle = docData.title;
-                    const postDescription = docData.description;
-                    const postAuthor = docData.author;
-                    const postCreatedAt = formatDate(docData.createdAt);
-                    const postContent = docData.content;
-                    const postStatus = docData.status;
+            const postEdit = (referenceDocPosts) => {
+                const subsPostEdit = onSnapshot(referenceDocPosts, (doc) => {
+                    const docID = doc.id;
+                    const docData = doc.data();
+                    if (docData != undefined) {
+                        const postLabel = docData.label;
+                        const postTitle = docData.title;
+                        const postDescription = docData.description;
+                        const postAuthor = docData.author;
+                        const postCreatedAt = formatDate(docData.createdAt);
+                        const postContent = docData.content;
+                        const postStatus = docData.status;
 
-                    const templates = `
+                        const templates = `
                         <form id='edit_post'>
                             <div class='elcreative_input'>
                                 <input id='titles' name='titles' value='${postTitle}' placeholder='${options.text.textPostTitle}' type='text' autocomplete='off' required/>
@@ -609,27 +667,27 @@ function functionLoadScript(source) {
                             </div>
                         </form>
                     `
-                    options.elements.elementPostTitle.innerHTML = options.text.textEditPost;
-                    options.elements.elementContainer.innerHTML = templates;
+                        options.elements.elementPostTitle.innerHTML = options.text.textEditPost;
+                        options.elements.elementContainer.innerHTML = templates;
 
-                    const forms = document.getElementById('edit_post');
-                    postEditor(referenceDocPosts, {
-                        form: forms,
-                        updatePost: true,
-                        docID: docID,
-                    })
-                } else {
-                    window.location.href = dashboardPage
-                }
+                        const forms = document.getElementById('edit_post');
+                        postEditor(referenceDocPosts, {
+                            form: forms,
+                            updatePost: true,
+                            docID: docID,
+                        })
+                    } else {
+                        window.location.href = dashboardPage
+                    }
 
-                !doc.metadata.hasPendingWrites && subsPostEdit();
-            }, (error) => {
-                if (error) window.location.href = dashboardPage
-            })
-        };
+                    !doc.metadata.hasPendingWrites && subsPostEdit();
+                }, (error) => {
+                    if (error) window.location.href = dashboardPage
+                })
+            };
 
-        const postAdd = (referenceCollPost, postAddOptions) => {
-            const templates = `
+            const postAdd = (referenceCollPost, postAddOptions) => {
+                const templates = `
                 <form id='edit_post'>
                     <div class='elcreative_input'>
                         <input id='titles' name='titles' placeholder='${options.text.textPostTitle}' type='text' autocomplete='off' required/>
@@ -656,32 +714,32 @@ function functionLoadScript(source) {
                     </div>
                 </form>
             `
-            options.elements.elementPostTitle.innerHTML = options.text.textCreateNewPost;
-            options.elements.elementContainer.innerHTML = templates;
+                options.elements.elementPostTitle.innerHTML = options.text.textCreateNewPost;
+                options.elements.elementContainer.innerHTML = templates;
 
-            const forms = document.getElementById('edit_post');
-            postEditor(referenceCollPost, {
-                form: forms,
-                updatePost: false,
-                data: postAddOptions.data
-            })
-        };
+                const forms = document.getElementById('edit_post');
+                postEditor(referenceCollPost, {
+                    form: forms,
+                    updatePost: false,
+                    data: postAddOptions.data
+                })
+            };
 
-        const userView = (userID, userViewOptions) => {
-            const subsUserView = onSnapshot(doc(firestoreDatabase, `users/${userID}`), (doc) => {
-                const docID = doc.id;
-                const docData = doc.data();
-                const userPhotoUrl = docData.userPhotoUrl;
-                const userDisplayName = docData.userDisplayName;
-                const userCustomDisplayName = docData.userCustomDisplayName;
-                const userPublic = docData.userPublic;
-                const userRole = docData.userRole;
-                const userCustomWebURL = docData.userCustomWebURL;
-                const userEmail = docData.userEmail;
-                const userCustomPhone = docData.userCustomPhone;
-                const userCustomBio = docData.userCustomBio;
+            const userView = (userID, userViewOptions) => {
+                const subsUserView = onSnapshot(doc(firestoreDatabase, `users/${userID}`), (doc) => {
+                    const docID = doc.id;
+                    const docData = doc.data();
+                    const userPhotoUrl = docData.userPhotoUrl;
+                    const userDisplayName = docData.userDisplayName;
+                    const userCustomDisplayName = docData.userCustomDisplayName;
+                    const userPublic = docData.userPublic;
+                    const userRole = docData.userRole;
+                    const userCustomWebURL = docData.userCustomWebURL;
+                    const userEmail = docData.userEmail;
+                    const userCustomPhone = docData.userCustomPhone;
+                    const userCustomBio = docData.userCustomBio;
 
-                let templates = `
+                    let templates = `
                 <div class='flex w-full flex-col items-center justify-center py-4'>
                     <div class='relative h-[100px] w-[100px] flex-shrink-0 flex-grow-0'>
                         <img src='${userPhotoUrl ? userPhotoUrl : options.images.imageUserDefault}' alt='${userCustomDisplayName ? userCustomDisplayName : userDisplayName}' class='h-full w-full rounded-full text-transparent'/>
@@ -704,24 +762,24 @@ function functionLoadScript(source) {
                 </div>
                 `;
 
-                userViewOptions.container.innerHTML = templates
-                !doc.metadata.fromCache || !doc.metadata.hasPendingWrites && subsUserView();
-            })
-        }
+                    userViewOptions.container.innerHTML = templates
+                    !doc.metadata.fromCache || !doc.metadata.hasPendingWrites && subsUserView();
+                })
+            }
 
-        const userList = (referenceCollUser, listAllOptions) => {
-            const subsUserListAll = onSnapshot(referenceCollUser, (coll) => {
-                let userData = '';
-                coll.docs.forEach((colls) => {
-                    const collsID = colls.id;
-                    const collsData = colls.data();
-                    const userPhotoUrl = collsData.userPhotoUrl;
-                    const userDisplayName = collsData.userDisplayName;
-                    const userCustomDisplayName = collsData.userCustomDisplayName;
-                    const userPublic = collsData.userPublic;
-                    const userRole = collsData.userRole;
+            const userList = (referenceCollUser, listAllOptions) => {
+                const subsUserListAll = onSnapshot(referenceCollUser, (coll) => {
+                    let userData = '';
+                    coll.docs.forEach((colls) => {
+                        const collsID = colls.id;
+                        const collsData = colls.data();
+                        const userPhotoUrl = collsData.userPhotoUrl;
+                        const userDisplayName = collsData.userDisplayName;
+                        const userCustomDisplayName = collsData.userCustomDisplayName;
+                        const userPublic = collsData.userPublic;
+                        const userRole = collsData.userRole;
 
-                    userData += `
+                        userData += `
                         <div class='relative flex w-full flex-col items-center justify-center py-2'>
                             <div class='relative h-16 w-16 flex-shrink-0 flex-grow-0'>
                                 ${listAllOptions.userRole == 'admin' ? `<img src='${userPhotoUrl ? userPhotoUrl : options.images.imageUserDefault}' alt='${userCustomDisplayName ? userCustomDisplayName : userDisplayName}' class='h-full w-full rounded-full text-transparent'/>` : `<img src='${userPublic == "true" ? userPhotoUrl ? userPhotoUrl : options.imageUserDefault : options.images.imageUserDefault}' alt='${userPublic == "true" ? (userCustomDisplayName ? userCustomDisplayName : userDisplayName) : "Private User"}' class='h-full w-full rounded-full text-transparent'/>`}
@@ -738,77 +796,77 @@ function functionLoadScript(source) {
                             </div>` : ''}
                         </div>
                     `;
-                });
-
-                listAllOptions.containerUser.innerHTML += userData != '' ? `${userData}<button id='next_data' class='elcreative_button elcreative_ripple col-span-2 mt-3 lg:col-span-3' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button>` : `<p class='my-3 noresult text-center text-sm col-span-2 lg:col-span-3'>${options.text.textNoResult}</p>`;
-
-                const collLength = coll.docs[coll.docs.length - 1] != undefined ? coll.docs[coll.docs.length - 1] : null;
-                const buttonLoadMore = listAllOptions.containerUser.querySelector('#next_data');
-                buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    userList(query(collection(firestoreDatabase, 'users'), orderBy('userLastSigned', 'desc'), startAfter(collLength), limit(options.limitUserList)), {
-                        userUID: listAllOptions.userUID,
-                        userRole: listAllOptions.userRole,
-                        containerUser: listAllOptions.containerUser,
                     });
 
-                    buttonLoadMore.remove()
-                    window.easyToggleState();
-                });
+                    listAllOptions.containerUser.innerHTML += userData != '' ? `${userData}<button id='next_data' class='elcreative_button elcreative_ripple col-span-2 mt-3 lg:col-span-3' type='button' aria-label='${options.text.textLoadMore}'>${options.text.textLoadMore}</button>` : `<p class='my-3 noresult text-center text-sm col-span-2 lg:col-span-3'>${options.text.textNoResult}</p>`;
 
-                const buttonViewUsers = listAllOptions.containerUser.querySelectorAll('.button_view_users');
-                const dialogUserContent = document.querySelector('.dialog_users .dialog_container .dialog_content');
-                buttonViewUsers && buttonViewUsers.forEach((element, index) => {
-                    element.addEventListener('click', () => {
-                        dialogUserContent.innerHTML = options.elements.elementLoader;
+                    const collLength = coll.docs[coll.docs.length - 1] != undefined ? coll.docs[coll.docs.length - 1] : null;
+                    const buttonLoadMore = listAllOptions.containerUser.querySelector('#next_data');
+                    buttonLoadMore && buttonLoadMore.addEventListener('click', (event) => {
+                        event.preventDefault();
 
-                        userView(element.getAttribute('data-user-id'), {
-                            container: dialogUserContent,
+                        userList(query(collection(firestoreDatabase, 'users'), orderBy('userLastSigned', 'desc'), startAfter(collLength), limit(options.limitUserList)), {
+                            userUID: listAllOptions.userUID,
                             userRole: listAllOptions.userRole,
+                            containerUser: listAllOptions.containerUser,
                         });
-                    }, false);
-                });
 
-                const buttonSetRemoveAdmin = listAllOptions.containerUser.querySelectorAll('.dropdown_set_remove_admin');
-                buttonSetRemoveAdmin && buttonSetRemoveAdmin.forEach((element, index) => {
-                    element.addEventListener('click', () => {
-                        const userRef = doc(firestoreDatabase, `users/${element.getAttribute('data-user-id')}`);
-                        if (confirm(options.text.textConfirm)) {
-                            if (element.getAttribute('data-user-role') == 'admin') {
-                                updateDoc(userRef, {
-                                    userRole: 'user'
-                                });
+                        buttonLoadMore.remove()
+                        window.easyToggleState();
+                    });
+
+                    const buttonViewUsers = listAllOptions.containerUser.querySelectorAll('.button_view_users');
+                    const dialogUserContent = document.querySelector('.dialog_users .dialog_container .dialog_content');
+                    buttonViewUsers && buttonViewUsers.forEach((element, index) => {
+                        element.addEventListener('click', () => {
+                            dialogUserContent.innerHTML = options.elements.elementLoader;
+
+                            userView(element.getAttribute('data-user-id'), {
+                                container: dialogUserContent,
+                                userRole: listAllOptions.userRole,
+                            });
+                        }, false);
+                    });
+
+                    const buttonSetRemoveAdmin = listAllOptions.containerUser.querySelectorAll('.dropdown_set_remove_admin');
+                    buttonSetRemoveAdmin && buttonSetRemoveAdmin.forEach((element, index) => {
+                        element.addEventListener('click', () => {
+                            const userRef = doc(firestoreDatabase, `users/${element.getAttribute('data-user-id')}`);
+                            if (confirm(options.text.textConfirm)) {
+                                if (element.getAttribute('data-user-role') == 'admin') {
+                                    updateDoc(userRef, {
+                                        userRole: 'user'
+                                    });
+                                } else {
+                                    updateDoc(userRef, {
+                                        userRole: 'admin'
+                                    });
+                                };
+
+                                window.location.reload()
                             } else {
-                                updateDoc(userRef, {
-                                    userRole: 'admin'
-                                });
-                            };
+                                return false
+                            }
+                        }, false);
+                    });
 
-                            window.location.reload()
-                        } else {
-                            return false
-                        }
-                    }, false);
-                });
+                    !coll.metadata.hasPendingWrites && subsUserListAll();
+                    window.easyToggleState();
+                })
+            };
 
-                !coll.metadata.hasPendingWrites && subsUserListAll();
-                window.easyToggleState();
-            })
-        };
+            const userProfile = (referenceDocUser, userProfileOptions) => {
+                const subsCurrentUser = onSnapshot(referenceDocUser, (doc) => {
+                    const userData = doc.data();
+                    const userPhotoUrl = userData.userPhotoUrl;
+                    const userDisplayName = userData.userCustomDisplayName ? userData.userCustomDisplayName : userData.displayName
+                    const userRole = userData.userRole;
+                    const userWebURL = userData.userCustomWebURL;
+                    const userBio = userData.userCustomBio
+                    const userPhone = userData.userCustomPhone;
+                    const userPublic = userData.userPublic;
 
-        const userProfile = (referenceDocUser, userProfileOptions) => {
-            const subsCurrentUser = onSnapshot(referenceDocUser, (doc) => {
-                const userData = doc.data();
-                const userPhotoUrl = userData.userPhotoUrl;
-                const userDisplayName = userData.userCustomDisplayName ? userData.userCustomDisplayName : userData.displayName
-                const userRole = userData.userRole;
-                const userWebURL = userData.userCustomWebURL;
-                const userBio = userData.userCustomBio
-                const userPhone = userData.userCustomPhone;
-                const userPublic = userData.userPublic;
-
-                const templates = `
+                    const templates = `
                     <div class='relative flex w-full flex-col items-center justify-center rounded-lg border border-solid border-colorBorder p-3 dark:border-colorColorModeDarkBorder'>
                         <div class='flex w-full flex-col items-center justify-center lg:flex-row'>
                             <div class='relative h-[100px] w-[100px] flex-shrink-0 flex-grow-0'>
@@ -887,91 +945,91 @@ function functionLoadScript(source) {
                     <div id='dialog_users' class='elcreative_dialog dialog_users'><div class='dialog_container'><div class='dialog_content'>${options.elements.elementLoader}</div></div></div>
                 `;
 
-                // Injecting templates and remove container element
-                options.elements.elementContainer.innerHTML = templates;
+                    // Injecting templates and remove container element
+                    options.elements.elementContainer.innerHTML = templates;
 
-                // Check user Profile Visibility, if empty then profile will be visible to public
-                updateDoc(referenceDocUser, {
-                    userPublic: userPublic ? userPublic : 'true'
-                });
-
-                // Form Action
-                const forms = options.elements.elementContainer.querySelector('#dialog_profile');
-                forms.addEventListener('submit', (event) => {
-                    event.preventDefault();
-
-                    // Updating user profile
+                    // Check user Profile Visibility, if empty then profile will be visible to public
                     updateDoc(referenceDocUser, {
-                        userCustomDisplayName: forms.names.value,
-                        userCustomBio: forms.bio.value,
-                        userCustomWebURL: forms.web.value,
-                        userCustomPhone: forms.phone.value,
-                        userPublic: forms.visibility.value,
+                        userPublic: userPublic ? userPublic : 'true'
                     });
 
-                    window.location.reload()
-                });
+                    // Form Action
+                    const forms = options.elements.elementContainer.querySelector('#dialog_profile');
+                    forms.addEventListener('submit', (event) => {
+                        event.preventDefault();
 
-                // Tabs
-                const tabs = options.elements.elementContainer.querySelector('#tabs_profile');
-                const tabsPost = tabs.querySelector('#tab_posts');
-                postList(query(userProfileOptions.referenceCollPost, orderBy('createdAt', 'desc'), limit(options.limitPostList)), {
-                    container: tabsPost,
-                    referenceCollPost: userProfileOptions.referenceCollPost,
-                    userUID: doc.id,
-                });
-                tabsPost.innerHTML = '';
-
-                const buttonTabsPostAll = tabs.querySelector('#tab_button_posts_all');
-                const tabsPostsAll = tabs.querySelector('#tab_posts_all');
-                let tabsPostsAllClicker = 0;
-                userRole == 'admin' && buttonTabsPostAll.addEventListener('click', () => {
-                    ++tabsPostsAllClicker;
-                    if (tabsPostsAllClicker == 1) {
-                        tabsPostsAll.innerHTML = '';
-                        postListAll(query(collectionGroup(firestoreDatabase, 'posts'), where('status', '==', 'post_draft'), limit(options.limitPostList)), {
-                            userUID: doc.id,
-                            userRole: userRole,
-                            containerPost: tabsPostsAll,
+                        // Updating user profile
+                        updateDoc(referenceDocUser, {
+                            userCustomDisplayName: forms.names.value,
+                            userCustomBio: forms.bio.value,
+                            userCustomWebURL: forms.web.value,
+                            userCustomPhone: forms.phone.value,
+                            userPublic: forms.visibility.value,
                         });
-                    }
-                })
 
-                const buttonTabsUser = tabs.querySelector('#tab_button_users');
-                const tabsUsers = tabs.querySelector('#tab_users');
-                let tabUserClicker = 0;
-                buttonTabsUser.addEventListener('click', () => {
-                    ++tabUserClicker;
-                    if (tabUserClicker == 1) {
-                        tabsUsers.innerHTML = '';
-                        userList(query(collection(firestoreDatabase, 'users'), orderBy('userLastSigned', 'desc'), limit(options.limitUserList)), {
-                            userUID: doc.id,
-                            userRole: userRole,
-                            containerUser: tabsUsers,
-                        });
-                    }
-                });
+                        window.location.reload()
+                    });
 
-                // Sign Out
-                const buttonSignOut = options.elements.elementContainer.querySelector('#button_auth_signout');
-                buttonSignOut.addEventListener('click', (event) => {
-                    event.preventDefault();
+                    // Tabs
+                    const tabs = options.elements.elementContainer.querySelector('#tabs_profile');
+                    const tabsPost = tabs.querySelector('#tab_posts');
+                    postList(query(userProfileOptions.referenceCollPost, orderBy('createdAt', 'desc'), limit(options.limitPostList)), {
+                        container: tabsPost,
+                        referenceCollPost: userProfileOptions.referenceCollPost,
+                        userUID: doc.id,
+                    });
+                    tabsPost.innerHTML = '';
 
-                    signOut(firebaseAuth).then(() => {
-                        localStorage.removeItem('auth_image');
-                        window.location.href = '/';
-                    }).catch((error) => {
-
+                    const buttonTabsPostAll = tabs.querySelector('#tab_button_posts_all');
+                    const tabsPostsAll = tabs.querySelector('#tab_posts_all');
+                    let tabsPostsAllClicker = 0;
+                    userRole == 'admin' && buttonTabsPostAll.addEventListener('click', () => {
+                        ++tabsPostsAllClicker;
+                        if (tabsPostsAllClicker == 1) {
+                            tabsPostsAll.innerHTML = '';
+                            postListAll(query(collectionGroup(firestoreDatabase, 'posts'), where('status', '==', 'post_draft'), limit(options.limitPostList)), {
+                                userUID: doc.id,
+                                userRole: userRole,
+                                containerPost: tabsPostsAll,
+                            });
+                        }
                     })
+
+                    const buttonTabsUser = tabs.querySelector('#tab_button_users');
+                    const tabsUsers = tabs.querySelector('#tab_users');
+                    let tabUserClicker = 0;
+                    buttonTabsUser.addEventListener('click', () => {
+                        ++tabUserClicker;
+                        if (tabUserClicker == 1) {
+                            tabsUsers.innerHTML = '';
+                            userList(query(collection(firestoreDatabase, 'users'), orderBy('userLastSigned', 'desc'), limit(options.limitUserList)), {
+                                userUID: doc.id,
+                                userRole: userRole,
+                                containerUser: tabsUsers,
+                            });
+                        }
+                    });
+
+                    // Sign Out
+                    const buttonSignOut = options.elements.elementContainer.querySelector('#button_auth_signout');
+                    buttonSignOut.addEventListener('click', (event) => {
+                        event.preventDefault();
+
+                        signOut(firebaseAuth).then(() => {
+                            localStorage.removeItem('auth_image');
+                            window.location.href = '/';
+                        }).catch((error) => {
+
+                        })
+                    });
+
+                    !doc.metadata.hasPendingWrites && subsCurrentUser();
+                    window.easyToggleState();
                 });
+            };
 
-                !doc.metadata.hasPendingWrites && subsCurrentUser();
-                window.easyToggleState();
-            });
-        };
-
-        const signIn = (container, signInOptions) => {
-            let templates = `
+            const signIn = (container, signInOptions) => {
+                let templates = `
                 <div class="flex w-full flex-col items-center justify-center rounded-lg border border-solid border-colorBorder py-3 px-3 dark:border-colorColorModeDarkBorder">
                     <img src='${document.querySelector("link[rel^='icon']").getAttribute('href')}' class='mb-2 rounded-full shadow-2dp p-3' />
                     <div class="mb-2 text-2xl font-bold">Welcome</div>
@@ -981,125 +1039,125 @@ function functionLoadScript(source) {
                 </div>
             `
 
-            signInOptions.postHeader.remove()
-            container.innerHTML = templates;
-            container.querySelector('.auth_google').addEventListener('click', (event) => {
-                event.preventDefault();
+                signInOptions.postHeader.remove()
+                container.innerHTML = templates;
+                container.querySelector('.auth_google').addEventListener('click', (event) => {
+                    event.preventDefault();
 
-                const authProviderGoogle = new GoogleAuthProvider;
-                signInWithRedirect(firebaseAuth, authProviderGoogle).then(() => {
-                    window.location.href = dashboardUrl;
-                }).catch((error) => {
-                    window.location.href = '/';
+                    const authProviderGoogle = new GoogleAuthProvider;
+                    signInWithRedirect(firebaseAuth, authProviderGoogle).then(() => {
+                        window.location.href = dashboardUrl;
+                    }).catch((error) => {
+                        window.location.href = '/';
+                    })
                 })
+            }
+
+            onAuthStateChanged(firebaseAuth, (currentUser) => {
+                if (currentUser) {
+                    setDoc(doc(firestoreDatabase, 'users', currentUser.uid), {
+                        userDisplayName: currentUser.displayName,
+                        userEmail: currentUser.email,
+                        userUID: currentUser.uid,
+                        userPhotoUrl: currentUser.photoURL,
+                        userJoined: currentUser.metadata.creationTime,
+                        userLastSigned: currentUser.metadata.lastSignInTime,
+                    }, {
+                        merge: true
+                    }).then(() => {
+                        localStorage.setItem('auth_image', currentUser.photoURL);
+
+                        const referenceDocUser = doc(firestoreDatabase, `users/${currentUser.uid}`);
+                        const referenceDocPosts = dashboardUrl[1] != '' ? doc(firestoreDatabase, `users/${dashboardUrl[2] ? dashboardUrl[2] : currentUser.uid}/posts/${dashboardUrl[1]}`) : '';
+                        const referenceCollPost = collection(firestoreDatabase, `users/${currentUser.uid}/posts`);
+
+                        if (dashboardUrl[0] == 'post-view' && dashboardUrl[1] != '') {
+                            postView(referenceDocPosts, {
+                                userUID: dashboardUrl[2] ? dashboardUrl[2] : currentUser.uid
+                            })
+                        } else if (dashboardUrl[0] == 'post-edit' && dashboardUrl[1] != '') {
+                            postEdit(referenceDocPosts, {
+                                userUID: currentUser.uid
+                            })
+                        } else if (dashboardUrl[0] == 'post-add') {
+                            postAdd(referenceCollPost, {
+                                userUID: currentUser.uid,
+                                data: currentUser
+                            });
+                        } else {
+                            userProfile(referenceDocUser, {
+                                referenceCollPost: referenceCollPost
+                            });
+
+                            // MATERIA X2
+                            options.elements.elementContainer.classList.remove('post_body')
+                        }
+                    })
+                } else {
+                    localStorage.removeItem('auth_image');
+
+                    signIn(options.elements.elementContainer, {
+                        postHeader: options.elements.elementPostHeader
+                    });
+
+                    // MATERIA X2
+                    options.elements.elementContainer.classList.remove('post_body')
+                }
             })
         }
-
-        onAuthStateChanged(firebaseAuth, (currentUser) => {
-            if (currentUser) {
-                setDoc(doc(firestoreDatabase, 'users', currentUser.uid), {
-                    userDisplayName: currentUser.displayName,
-                    userEmail: currentUser.email,
-                    userUID: currentUser.uid,
-                    userPhotoUrl: currentUser.photoURL,
-                    userJoined: currentUser.metadata.creationTime,
-                    userLastSigned: currentUser.metadata.lastSignInTime,
-                }, {
-                    merge: true
-                }).then(() => {
-                    localStorage.setItem('auth_image', currentUser.photoURL);
-
-                    const referenceDocUser = doc(firestoreDatabase, `users/${currentUser.uid}`);
-                    const referenceDocPosts = dashboardUrl[1] != '' ? doc(firestoreDatabase, `users/${dashboardUrl[2] ? dashboardUrl[2] : currentUser.uid}/posts/${dashboardUrl[1]}`) : '';
-                    const referenceCollPost = collection(firestoreDatabase, `users/${currentUser.uid}/posts`);
-
-                    if (dashboardUrl[0] == 'post-view' && dashboardUrl[1] != '') {
-                        postView(referenceDocPosts, {
-                            userUID: dashboardUrl[2] ? dashboardUrl[2] : currentUser.uid
-                        })
-                    } else if (dashboardUrl[0] == 'post-edit' && dashboardUrl[1] != '') {
-                        postEdit(referenceDocPosts, {
-                            userUID: currentUser.uid
-                        })
-                    } else if (dashboardUrl[0] == 'post-add') {
-                        postAdd(referenceCollPost, {
-                            userUID: currentUser.uid,
-                            data: currentUser
-                        });
-                    } else {
-                        userProfile(referenceDocUser, {
-                            referenceCollPost: referenceCollPost
-                        });
-
-                        // MATERIA X2
-                        options.elements.elementContainer.classList.remove('post_body')
-                    }
-                })
-            } else {
-                localStorage.removeItem('auth_image');
-
-                signIn(options.elements.elementContainer, {
-                    postHeader: options.elements.elementPostHeader
-                });
-
-                // MATERIA X2
-                options.elements.elementContainer.classList.remove('post_body')
-            }
-        })
-    }
-})(authPageIndex, {
-    getConfig: firebaseConfig,
-    limitPostList: 4,
-    limitUserList: 6,
-    elements: {
-        elementContainer: elementPostBody,
-        elementPostHeader: document.querySelector('.post-header'),
-        elementPostTitle: document.querySelector('.entry-title'),
-        elementLoader: elcreativeConfig.include.iconLoader,
-    },
-    images: {
-        imageUserDefault: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPzZlVciGeYVCgCEcfFKeNI8IhtFHNShFG_5Xavi8bej56zOpPRIjHEUZsTsLybpnEZkNJ6M-ivL0lcjLs9YEu_xVrD14a9gtcfxBAzIvwrmAY920GO9gkHtlljlwvRnLcRvD8WL5pbEcmgxCpct-7EJsMymUnpFCMxpTk8i0b0P7O82_kzKoEjeb3/w80/user-icon.webp',
-    },
-    text: {
-        textBio: elcreativeConfig.with.translateBio,
-        textCreateNewPost: elcreativeConfig.with.translateCreateNewPost,
-        textEditProfile: elcreativeConfig.with.translateEditProfile,
-        textMyPosts: elcreativeConfig.with.translateMyPosts,
-        textName: elcreativeConfig.with.translateName,
-        textPhone: elcreativeConfig.with.translatePhone,
-        textProfileVisibility: elcreativeConfig.with.translateProfileVisibility,
-        textProfilePrivate: elcreativeConfig.with.translateProfilePrivate,
-        textProfilePublic: 'Terlihat untuk publik',
-        textSignOut: elcreativeConfig.with.translateSignOut,
-        textSave: elcreativeConfig.with.translateSave,
-        textWebURL: elcreativeConfig.with.translateWebURL,
-        textViewPost: elcreativeConfig.with.translateViewPost,
-        textEditPost: elcreativeConfig.with.translateEditPost,
-        textDeletePost: elcreativeConfig.with.translateDeletePost,
-        textLoadMore: elcreativeConfig.with.translateLoadMore,
-        textNoResult: elcreativeConfig.dataMessages.noResultsFound,
-        textConfirm: elcreativeConfig.with.translateConfirm,
-        textPostTitle: elcreativeConfig.with.translatePostTitle,
-        textPostDescription: elcreativeConfig.with.translatePostDescription,
-        textPostLabel: elcreativeConfig.with.translatePostLabel,
-        textSaveOptions: elcreativeConfig.with.translateSaveOptions,
-        textSavePostPrivate: elcreativeConfig.with.translateSavePostPrivate,
-        textSavePostGuest: elcreativeConfig.with.translateSavePostGuest,
-        textSavePostToMyBlog: elcreativeConfig.with.translateSavePostMyBlog,
-        textSavePostPublic: elcreativeConfig.with.translateSavePostPublic,
-        textCancel: elcreativeConfig.with.translateCancel,
-        textAllPost: elcreativeConfig.with.translateAllPosts,
-        textUsers: elcreativeConfig.with.translateUsers,
-        textViewProfile: elcreativeConfig.with.translateViewProfile,
-        textHiddenProfile: elcreativeConfig.with.translateHiddenProfile,
-        textSetAdmin: elcreativeConfig.with.translateSetAdmin,
-        textSetUser: elcreativeConfig.with.translateSetUser,
-    },
-    icons: {
-        iconVerified: elcreativeConfig.include.iconVerified,
-        iconSettings: elcreativeConfig.include.iconSettings,
-        iconClose: elcreativeConfig.include.iconClose,
-        iconMoreVertical: elcreativeConfig.include.iconMoreVertical,
-        iconLock: elcreativeConfig.include.iconLock,
-    }
-})
+    })(authPageIndex, {
+        getConfig: firebaseConfig,
+        limitPostList: 4,
+        limitUserList: 6,
+        elements: {
+            elementContainer: elementPostBody,
+            elementPostHeader: document.querySelector('.post-header'),
+            elementPostTitle: document.querySelector('.entry-title'),
+            elementLoader: elcreativeConfig.include.iconLoader,
+        },
+        images: {
+            imageUserDefault: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPzZlVciGeYVCgCEcfFKeNI8IhtFHNShFG_5Xavi8bej56zOpPRIjHEUZsTsLybpnEZkNJ6M-ivL0lcjLs9YEu_xVrD14a9gtcfxBAzIvwrmAY920GO9gkHtlljlwvRnLcRvD8WL5pbEcmgxCpct-7EJsMymUnpFCMxpTk8i0b0P7O82_kzKoEjeb3/w80/user-icon.webp',
+        },
+        text: {
+            textBio: elcreativeConfig.with.translateBio,
+            textCreateNewPost: elcreativeConfig.with.translateCreateNewPost,
+            textEditProfile: elcreativeConfig.with.translateEditProfile,
+            textMyPosts: elcreativeConfig.with.translateMyPosts,
+            textName: elcreativeConfig.with.translateName,
+            textPhone: elcreativeConfig.with.translatePhone,
+            textProfileVisibility: elcreativeConfig.with.translateProfileVisibility,
+            textProfilePrivate: elcreativeConfig.with.translateProfilePrivate,
+            textProfilePublic: 'Terlihat untuk publik',
+            textSignOut: elcreativeConfig.with.translateSignOut,
+            textSave: elcreativeConfig.with.translateSave,
+            textWebURL: elcreativeConfig.with.translateWebURL,
+            textViewPost: elcreativeConfig.with.translateViewPost,
+            textEditPost: elcreativeConfig.with.translateEditPost,
+            textDeletePost: elcreativeConfig.with.translateDeletePost,
+            textLoadMore: elcreativeConfig.with.translateLoadMore,
+            textNoResult: elcreativeConfig.dataMessages.noResultsFound,
+            textConfirm: elcreativeConfig.with.translateConfirm,
+            textPostTitle: elcreativeConfig.with.translatePostTitle,
+            textPostDescription: elcreativeConfig.with.translatePostDescription,
+            textPostLabel: elcreativeConfig.with.translatePostLabel,
+            textSaveOptions: elcreativeConfig.with.translateSaveOptions,
+            textSavePostPrivate: elcreativeConfig.with.translateSavePostPrivate,
+            textSavePostGuest: elcreativeConfig.with.translateSavePostGuest,
+            textSavePostToMyBlog: elcreativeConfig.with.translateSavePostMyBlog,
+            textSavePostPublic: elcreativeConfig.with.translateSavePostPublic,
+            textCancel: elcreativeConfig.with.translateCancel,
+            textAllPost: elcreativeConfig.with.translateAllPosts,
+            textUsers: elcreativeConfig.with.translateUsers,
+            textViewProfile: elcreativeConfig.with.translateViewProfile,
+            textHiddenProfile: elcreativeConfig.with.translateHiddenProfile,
+            textSetAdmin: elcreativeConfig.with.translateSetAdmin,
+            textSetUser: elcreativeConfig.with.translateSetUser,
+        },
+        icons: {
+            iconVerified: elcreativeConfig.include.iconVerified,
+            iconSettings: elcreativeConfig.include.iconSettings,
+            iconClose: elcreativeConfig.include.iconClose,
+            iconMoreVertical: elcreativeConfig.include.iconMoreVertical,
+            iconLock: elcreativeConfig.include.iconLock,
+        }
+    })
